@@ -1,110 +1,154 @@
 /**
- * PRINGPEN 2026 - Background Audio Controller
- * Handles background music playback (gangsingan.mp3), loop, browser autoplay policy handling,
- * and spinning CD disc interaction.
+ * PRINGPEN 2026 - Background Audio Controller (Mobile & Desktop Optimized)
+ * Robust Web Audio API unlocker + HTML5 Audio playback for iOS Safari & Android Chrome.
  */
 
 let globalAudio = null;
 let globalControlWrap = null;
 let globalToggleBtn = null;
 let hasUserManuallyPaused = false;
+let audioContext = null;
+
+function getAudioElement() {
+  if (!globalAudio) {
+    globalAudio = document.getElementById('bg-audio');
+  }
+  return globalAudio;
+}
+
+function getUIElements() {
+  if (!globalControlWrap) {
+    globalControlWrap = document.getElementById('audio-control');
+  }
+  if (!globalToggleBtn) {
+    globalToggleBtn = document.getElementById('audio-toggle-btn');
+  }
+  return { controlWrap: globalControlWrap, toggleBtn: globalToggleBtn };
+}
+
+function updateUI(playing) {
+  const { controlWrap, toggleBtn } = getUIElements();
+  if (playing) {
+    if (controlWrap) {
+      controlWrap.classList.add('playing');
+      controlWrap.classList.remove('paused');
+    }
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-label', 'Jeda Musik Latar');
+      toggleBtn.setAttribute('title', 'Jeda Musik Latar');
+    }
+  } else {
+    if (controlWrap) {
+      controlWrap.classList.remove('playing');
+      controlWrap.classList.add('paused');
+    }
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-label', 'Putar Musik Latar');
+      toggleBtn.setAttribute('title', 'Putar Musik Latar');
+    }
+  }
+}
+
+// Unlock Web Audio Context for iOS / Android mobile browsers
+function unlockAudioContext() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtx) {
+      if (!audioContext) {
+        audioContext = new AudioCtx();
+      }
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+    }
+  } catch (err) {
+    // Ignore audio context errors on unsupported environments
+  }
+}
 
 export function playAudioDirectly() {
   if (hasUserManuallyPaused) return;
-  const audio = globalAudio || document.getElementById('bg-audio');
-  const controlWrap = globalControlWrap || document.getElementById('audio-control');
-  const toggleBtn = globalToggleBtn || document.getElementById('audio-toggle-btn');
-
+  const audio = getAudioElement();
   if (!audio) return;
-  audio.volume = 0.4;
+
+  unlockAudioContext();
+
+  try {
+    audio.muted = false;
+    audio.volume = 0.4;
+  } catch (err) {
+    // iOS Safari does not allow volume mutation via JS
+  }
 
   const playPromise = audio.play();
   if (playPromise !== undefined) {
     playPromise
       .then(() => {
-        if (controlWrap) {
-          controlWrap.classList.add('playing');
-          controlWrap.classList.remove('paused');
-        }
-        if (toggleBtn) {
-          toggleBtn.setAttribute('aria-label', 'Jeda Musik Latar');
-          toggleBtn.setAttribute('title', 'Jeda Musik Latar');
-        }
+        updateUI(true);
       })
       .catch(() => {
-        // Autoplay policy prevented immediate playback
-        if (controlWrap) {
-          controlWrap.classList.remove('playing');
-          controlWrap.classList.add('paused');
-        }
+        // If play failed due to browser restriction, keep paused state for next touch
+        updateUI(false);
       });
   }
 }
 
-export function initBacksound() {
-  const audio = document.getElementById('bg-audio');
-  const controlWrap = document.getElementById('audio-control');
-  const toggleBtn = document.getElementById('audio-toggle-btn');
-
-  if (!audio || !controlWrap || !toggleBtn) return;
-
-  globalAudio = audio;
-  globalControlWrap = controlWrap;
-  globalToggleBtn = toggleBtn;
-
-  audio.volume = 0.4;
-
-  function updateUI(playing) {
-    if (playing) {
-      controlWrap.classList.add('playing');
-      controlWrap.classList.remove('paused');
-      toggleBtn.setAttribute('aria-label', 'Jeda Musik Latar');
-      toggleBtn.setAttribute('title', 'Jeda Musik Latar');
-    } else {
-      controlWrap.classList.remove('playing');
-      controlWrap.classList.add('paused');
-      toggleBtn.setAttribute('aria-label', 'Putar Musik Latar');
-      toggleBtn.setAttribute('title', 'Putar Musik Latar');
-    }
-  }
-
-  function pauseAudio() {
+export function pauseAudio() {
+  const audio = getAudioElement();
+  if (audio) {
     audio.pause();
-    updateUI(false);
+  }
+  updateUI(false);
+}
+
+export function toggleAudio(e) {
+  if (e) e.stopPropagation();
+  const audio = getAudioElement();
+  if (!audio) return;
+
+  if (audio.paused) {
+    hasUserManuallyPaused = false;
+    playAudioDirectly();
+  } else {
+    hasUserManuallyPaused = true;
+    pauseAudio();
+  }
+}
+
+export function initBacksound() {
+  const audio = getAudioElement();
+  const { toggleBtn } = getUIElements();
+
+  if (!audio) return;
+
+  try {
+    audio.volume = 0.4;
+  } catch (e) {}
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', toggleAudio);
+    toggleBtn.addEventListener('touchend', toggleAudio);
   }
 
-  function toggleAudio(e) {
-    if (e) e.stopPropagation();
-    if (audio.paused) {
-      hasUserManuallyPaused = false;
-      playAudioDirectly();
-    } else {
-      hasUserManuallyPaused = true;
-      pauseAudio();
-    }
-  }
-
-  toggleBtn.addEventListener('click', toggleAudio);
-
-  // 1. Attempt immediate playback on page load
+  // Attempt initial playback on desktop if already permitted
   playAudioDirectly();
 
-  // 2. Comprehensive capture listeners: As soon as user clicks, taps, scrolls, or presses any key,
-  // immediately unlock audio playback seamlessly.
-  const unlockEvents = ['pointerdown', 'touchstart', 'click', 'keydown', 'wheel', 'scroll'];
+  // Mobile & Global gesture listeners:
+  // Any tap / touch anywhere on the page guarantees audio starts immediately
+  const gestureEvents = ['touchend', 'click', 'pointerup', 'keydown'];
 
-  const unlockAudioOnGesture = () => {
+  const handleGlobalGesture = () => {
     if (!hasUserManuallyPaused && audio.paused) {
       playAudioDirectly();
     }
-    unlockEvents.forEach(evt => {
-      window.removeEventListener(evt, unlockAudioOnGesture, true);
-      document.removeEventListener(evt, unlockAudioOnGesture, true);
+    gestureEvents.forEach(evt => {
+      window.removeEventListener(evt, handleGlobalGesture, true);
+      document.removeEventListener(evt, handleGlobalGesture, true);
     });
   };
 
-  unlockEvents.forEach(evt => {
-    window.addEventListener(evt, unlockAudioOnGesture, { capture: true, passive: true });
-    document.addEventListener(evt, unlockAudioOnGesture, { capture: true, passive: true });
+  gestureEvents.forEach(evt => {
+    window.addEventListener(evt, handleGlobalGesture, { capture: true, passive: true });
+    document.addEventListener(evt, handleGlobalGesture, { capture: true, passive: true });
   });
 }

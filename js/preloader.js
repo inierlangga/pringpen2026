@@ -1,5 +1,5 @@
 /**
- * PRINGPEN 2026 - Preloader Module
+ * PRINGPEN 2026 - Preloader Module (Mobile & Desktop Optimized)
  * Staged Lifecycle:
  * 1. Loading Phase: Show branding & animated loading dots. Enter button is hidden.
  * 2. Ready Phase: Triggered on window 'load' (or complete readyState) -> reveal enter button smoothly.
@@ -28,22 +28,22 @@ export function initPreloader() {
 
   // Detect when page is completely loaded
   if (document.readyState === 'complete') {
-    // Keep a brief 400ms entrance so branding is readable
     setTimeout(makeReadyToEnter, 400);
   } else {
     window.addEventListener('load', () => {
       setTimeout(makeReadyToEnter, 300);
     });
-    // Safety fallback: if large background assets (maps iframe, etc.) take long, reveal button after 2.5s anyway
     setTimeout(makeReadyToEnter, 2500);
   }
 
-  const removePreloader = (e) => {
+  const handleEnterAction = (e) => {
     if (!isReady || isDismissed) return;
-    if (e) e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
     isDismissed = true;
 
-    // Trigger audio directly within user interaction event
+    // Direct synchronous audio playback inside user tap event
     playAudioDirectly();
 
     // Trigger opening split-curtain animation
@@ -59,19 +59,20 @@ export function initPreloader() {
   };
 
   if (enterBtn) {
-    enterBtn.addEventListener('click', removePreloader);
+    enterBtn.addEventListener('click', handleEnterAction);
+    enterBtn.addEventListener('touchend', handleEnterAction);
   }
 
-  // Once ready, clicking anywhere on the preloader screen will also trigger entrance
+  // Once ready, tapping anywhere on the preloader screen will also trigger entrance
   preloader.addEventListener('click', (e) => {
     if (isReady && !isDismissed) {
-      removePreloader(e);
+      handleEnterAction(e);
     }
   });
 
-  preloader.addEventListener('touchstart', (e) => {
+  preloader.addEventListener('touchend', (e) => {
     if (isReady && !isDismissed) {
-      removePreloader(e);
+      handleEnterAction(e);
     }
-  }, { passive: true });
+  });
 }
