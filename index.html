@@ -646,6 +646,30 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       🎵 FLOATING AUDIO BACKSOUND CONTROLLER
+       ======================================================================== -->
+  <div id="audio-control" class="audio-control-wrap paused" aria-label="Kontrol Musik Latar">
+    <button id="audio-toggle-btn" class="audio-toggle-btn" aria-label="Putar Musik Latar" title="Putar Musik Latar (Gangsingan)">
+      <!-- Animated Sound Wave Bars when playing -->
+      <div class="audio-wave" aria-hidden="true">
+        <span class="bar bar-1"></span>
+        <span class="bar bar-2"></span>
+        <span class="bar bar-3"></span>
+      </div>
+      <!-- Muted Speaker Icon when paused -->
+      <svg class="audio-icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="23" y1="9" x2="17" y2="15"></line>
+        <line x1="17" y1="9" x2="23" y2="15"></line>
+      </svg>
+      <span class="audio-label">Gangsingan</span>
+    </button>
+  </div>
+
+  <!-- Background Music Audio Element (Looped) -->
+  <audio id="bg-audio" loop preload="auto" src="assets/backsound/gangsingan.mp3"></audio>
+
   <!-- Master JavaScript Module Entry -->
   <script type="module" src="js/main.js"></script>
 </body>

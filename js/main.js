@@ -10,6 +10,7 @@ import { initCalendar } from './calendar.js';
 import { initCarousel } from './carousel.js';
 import { initFaqAccordion } from './faq.js';
 import { initScrollAnimations } from './scroll-animations.js';
+import { initBacksound } from './audio.js';
 
 // Structured Category Data for Competition Section
 export const categoriesData = [
@@ -116,4 +117,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaqAccordion();
   initSmoothScroll();
   initScrollAnimations();
+  initBacksound();
 });

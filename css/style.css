@@ -2293,3 +2293,131 @@ button, input, textarea, select {
     font-size: 0.85rem;
   }
 }
+
+/* ==========================================================================
+   8. FLOATING AUDIO BACKSOUND CONTROLLER
+   ========================================================================== */
+.audio-control-wrap {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 90;
+  pointer-events: auto;
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+.audio-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(11, 29, 48, 0.85);
+  border: 1px solid rgba(249, 168, 38, 0.35);
+  border-radius: var(--radius-full);
+  padding: 0.45rem 0.95rem 0.45rem 0.85rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--color-gold);
+  font-family: var(--font-body);
+  font-size: 0.775rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.audio-toggle-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(16, 42, 67, 0.95);
+  border-color: var(--color-accent);
+  box-shadow: 0 6px 20px rgba(249, 168, 38, 0.25);
+  color: var(--color-accent-light);
+}
+
+/* Audio Wave Equalizer Animation (When Playing) */
+.audio-wave {
+  display: flex;
+  align-items: center;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.audio-wave .bar {
+  display: inline-block;
+  width: 2.5px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  animation: waveJump 1.2s ease-in-out infinite alternate;
+}
+
+.audio-wave .bar-1 {
+  height: 6px;
+  animation-delay: 0s;
+}
+
+.audio-wave .bar-2 {
+  height: 14px;
+  animation-delay: 0.3s;
+}
+
+.audio-wave .bar-3 {
+  height: 9px;
+  animation-delay: 0.15s;
+}
+
+@keyframes waveJump {
+  0% {
+    height: 3px;
+  }
+  50% {
+    height: 14px;
+  }
+  100% {
+    height: 5px;
+  }
+}
+
+/* State: Playing */
+.audio-control-wrap.playing .audio-wave {
+  display: flex;
+}
+
+.audio-control-wrap.playing .audio-icon-muted {
+  display: none;
+}
+
+.audio-control-wrap.playing .audio-toggle-btn {
+  border-color: rgba(249, 168, 38, 0.55);
+}
+
+/* State: Paused */
+.audio-control-wrap.paused .audio-wave {
+  display: none;
+}
+
+.audio-control-wrap.paused .audio-icon-muted {
+  display: block;
+  color: var(--color-text-muted);
+}
+
+.audio-control-wrap.paused .audio-label {
+  color: var(--color-text-muted);
+}
+
+.audio-control-wrap.paused .audio-toggle-btn {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(11, 29, 48, 0.75);
+}
+
+@media (max-width: 480px) {
+  .audio-control-wrap {
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .audio-toggle-btn {
+    padding: 0.4rem 0.8rem 0.4rem 0.75rem;
+    font-size: 0.725rem;
+  }
+}
