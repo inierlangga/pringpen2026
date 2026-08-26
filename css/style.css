@@ -1178,9 +1178,7 @@ button, input, textarea, select {
   background: linear-gradient(
     90deg,
     #FFF8E7 0%,
-    #FFA726 25%,
-    #FF7043 50%,
-    #FFA726 75%,
+    #FFA726 50%,
     #FFF8E7 100%
   );
   background-size: 200% auto;
