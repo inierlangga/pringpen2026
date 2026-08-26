@@ -1,7 +1,9 @@
 /**
- * PRINGPEN 2026 - Preloader Module (Fast & Snappy)
- * Split curtain animation + Logo reveal + Fast unlock
+ * PRINGPEN 2026 - Preloader Module (Interactive + Audio Unlocker)
+ * Split curtain animation + Logo reveal + Fast unlock on tap / timeout
  */
+
+import { playAudioDirectly } from './audio.js';
 
 export function initPreloader() {
   const preloader = document.getElementById('preloader');
@@ -10,9 +12,15 @@ export function initPreloader() {
   // Lock body scroll during preloader
   document.body.classList.add('preloader-active');
 
+  let isDismissed = false;
+
   const removePreloader = () => {
-    if (preloader.classList.contains('loaded')) return;
-    
+    if (isDismissed) return;
+    isDismissed = true;
+
+    // Trigger audio directly within user gesture stack
+    playAudioDirectly();
+
     // Trigger opening split-curtain animation
     preloader.classList.add('loaded');
 
@@ -25,7 +33,10 @@ export function initPreloader() {
     }, 550);
   };
 
-  // Trigger quick opening after a brief 300ms branded entrance
-  // (Avoids blocking on heavy background assets like Google Maps iframe)
-  setTimeout(removePreloader, 300);
+  // 1. Tapping / clicking anywhere on preloader unlocks audio instantly and opens curtain
+  preloader.addEventListener('click', removePreloader);
+  preloader.addEventListener('touchstart', removePreloader, { passive: true });
+
+  // 2. Fallback auto open after 1.2s
+  setTimeout(removePreloader, 1200);
 }
