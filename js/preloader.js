@@ -1,24 +1,49 @@
 /**
- * PRINGPEN 2026 - Preloader Module (Interactive + Audio Unlocker)
- * Split curtain animation + Logo reveal + Fast unlock on tap / timeout
+ * PRINGPEN 2026 - Preloader Module
+ * Staged Lifecycle:
+ * 1. Loading Phase: Show branding & animated loading dots. Enter button is hidden.
+ * 2. Ready Phase: Triggered on window 'load' (or complete readyState) -> reveal enter button smoothly.
+ * 3. Entrance Phase: User taps/clicks the enter button -> triggers audio & opens curtain.
  */
 
 import { playAudioDirectly } from './audio.js';
 
 export function initPreloader() {
   const preloader = document.getElementById('preloader');
+  const enterBtn = document.getElementById('preloader-enter-btn');
   if (!preloader) return;
 
   // Lock body scroll during preloader
   document.body.classList.add('preloader-active');
 
+  let isReady = false;
   let isDismissed = false;
 
-  const removePreloader = () => {
-    if (isDismissed) return;
+  // Reveal enter button when assets/DOM are fully loaded
+  function makeReadyToEnter() {
+    if (isReady || isDismissed) return;
+    isReady = true;
+    preloader.classList.add('ready-to-enter');
+  }
+
+  // Detect when page is completely loaded
+  if (document.readyState === 'complete') {
+    // Keep a brief 400ms entrance so branding is readable
+    setTimeout(makeReadyToEnter, 400);
+  } else {
+    window.addEventListener('load', () => {
+      setTimeout(makeReadyToEnter, 300);
+    });
+    // Safety fallback: if large background assets (maps iframe, etc.) take long, reveal button after 2.5s anyway
+    setTimeout(makeReadyToEnter, 2500);
+  }
+
+  const removePreloader = (e) => {
+    if (!isReady || isDismissed) return;
+    if (e) e.stopPropagation();
     isDismissed = true;
 
-    // Trigger audio directly within user gesture stack
+    // Trigger audio directly within user interaction event
     playAudioDirectly();
 
     // Trigger opening split-curtain animation
@@ -30,13 +55,23 @@ export function initPreloader() {
     // Remove from layout after animation completes
     setTimeout(() => {
       preloader.style.display = 'none';
-    }, 550);
+    }, 600);
   };
 
-  // 1. Tapping / clicking anywhere on preloader unlocks audio instantly and opens curtain
-  preloader.addEventListener('click', removePreloader);
-  preloader.addEventListener('touchstart', removePreloader, { passive: true });
+  if (enterBtn) {
+    enterBtn.addEventListener('click', removePreloader);
+  }
 
-  // 2. Fallback auto open after 1.2s
-  setTimeout(removePreloader, 1200);
+  // Once ready, clicking anywhere on the preloader screen will also trigger entrance
+  preloader.addEventListener('click', (e) => {
+    if (isReady && !isDismissed) {
+      removePreloader(e);
+    }
+  });
+
+  preloader.addEventListener('touchstart', (e) => {
+    if (isReady && !isDismissed) {
+      removePreloader(e);
+    }
+  }, { passive: true });
 }

@@ -16,40 +16,40 @@ import { initEmbers } from './embers.js';
 // Structured Category Data for Competition Section
 export const categoriesData = [
   {
-    id: "tari-tradisional",
-    title: "Tari Tradisional & Kreasi",
-    icon: "assets/icons/11.png",
-    description: "Kompetisi seni tari tradisional maupun kreasi daerah yang mengekspresikan kekayaan dan keanggunan budaya Nusantara.",
-    regLink: "#",
-    guidebookLink: "#",
-    badge: "Seni Pertunjukan"
-  },
-  {
-    id: "teater-monolog",
-    title: "Teater & Monolog",
+    id: "monolog",
+    title: "Monolog",
     icon: "assets/icons/12.png",
-    description: "Panggung olah peran dan seni peran lakon bertema Lentera Nusa yang menggugah emosi, karakter, dan pesan moral luhur.",
+    description: "Panggung seni peran tunggal lakon bertema Lentera Nusa yang menggugah emosi, penjiwaan karakter mendalam, dan pesan moral luhur.",
     regLink: "#",
     guidebookLink: "#",
     badge: "Seni Peran"
   },
   {
-    id: "cipta-baca-puisi",
-    title: "Cipta & Baca Puisi",
+    id: "voice-over",
+    title: "Voice Over",
     icon: "assets/icons/13.png",
-    description: "Gubahan bait-bait puitis dan penghayatan deklamasi sastra nusantara yang menyuarakan semangat dan kecintaan pada tanah air.",
+    description: "Kompetisi seni olah vokal, intonasi, dan ekspresi narasi suara bernuansa Nusantara yang komunikatif, hidup, dan memikat pendengar.",
     regLink: "#",
     guidebookLink: "#",
-    badge: "Sastra Nusantara"
+    badge: "Seni Suara"
   },
   {
-    id: "musik-tradisi",
-    title: "Musik Tradisi & Akustik",
+    id: "infografis",
+    title: "Infografis",
     icon: "assets/icons/14.png",
-    description: "Harmonisasi instrumen etnik dan aransemen akustik bernuansa nusantara yang syahdu dan sarat harmoni nada nusantara.",
+    description: "Karya desain visual informatif dan kreatif yang mengemas pesan, kekayaan nilai budaya, serta wawasan Nusantara secara estetis.",
     regLink: "#",
     guidebookLink: "#",
-    badge: "Seni Musik"
+    badge: "Desain Visual"
+  },
+  {
+    id: "tari-tradisional",
+    title: "Tari Tradisional",
+    icon: "assets/icons/11.png",
+    description: "Kompetisi seni gerak tari tradisional maupun kreasi daerah yang mengekspresikan keanggunan dan kekayaan budaya Nusantara.",
+    regLink: "#",
+    guidebookLink: "#",
+    badge: "Seni Tari"
   }
 ];
 
