@@ -11,6 +11,7 @@ import { initCarousel } from './carousel.js';
 import { initFaqAccordion } from './faq.js';
 import { initScrollAnimations } from './scroll-animations.js';
 import { initBacksound } from './audio.js';
+import { initEmbers } from './embers.js';
 
 // Structured Category Data for Competition Section
 export const categoriesData = [
@@ -118,4 +119,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initScrollAnimations();
   initBacksound();
+  initEmbers();
 });

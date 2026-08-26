@@ -19,8 +19,12 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/icons/1.png">
-</head>
 <body class="preloader-active">
+  <!-- Fixed Parallax Batik Background Layer -->
+  <div class="bg-parallax-batik" aria-hidden="true"></div>
+
+  <!-- Subtle Glowing Embers Background Canvas -->
+  <canvas id="ember-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;"></canvas>
 
   <!-- ========================================================================
        0️⃣ PRELOADER (Split Curtain + Bouncing Logo)
@@ -647,28 +651,24 @@
   </div>
 
   <!-- ========================================================================
-       🎵 FLOATING AUDIO BACKSOUND CONTROLLER
+       🎵 FLOATING CD AUDIO CONTROLLER (Spinning CD Music Disc)
        ======================================================================== -->
-  <div id="audio-control" class="audio-control-wrap paused" aria-label="Kontrol Musik Latar">
-    <button id="audio-toggle-btn" class="audio-toggle-btn" aria-label="Putar Musik Latar" title="Putar Musik Latar (Gangsingan)">
-      <!-- Animated Sound Wave Bars when playing -->
-      <div class="audio-wave" aria-hidden="true">
-        <span class="bar bar-1"></span>
-        <span class="bar bar-2"></span>
-        <span class="bar bar-3"></span>
+  <div id="audio-control" class="audio-control-wrap playing" aria-label="Kontrol Musik Latar">
+    <button id="audio-toggle-btn" class="audio-cd-btn" aria-label="Jeda Musik Latar" title="Jeda Musik Latar">
+      <div class="cd-disc-wrapper">
+        <img src="assets/icons/cd-disc.svg" alt="CD Musik Latar" class="cd-disc-img">
+        <div class="cd-center-indicator">
+          <!-- Play icon overlay when paused -->
+          <svg class="cd-play-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="6 4 20 12 6 20 6 4"></polygon>
+          </svg>
+        </div>
       </div>
-      <!-- Muted Speaker Icon when paused -->
-      <svg class="audio-icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-        <line x1="23" y1="9" x2="17" y2="15"></line>
-        <line x1="17" y1="9" x2="23" y2="15"></line>
-      </svg>
-      <span class="audio-label">Gangsingan</span>
     </button>
   </div>
 
-  <!-- Background Music Audio Element (Looped) -->
-  <audio id="bg-audio" loop preload="auto" src="assets/backsound/gangsingan.mp3"></audio>
+  <!-- Background Music Audio Element (Looped & Autoplay) -->
+  <audio id="bg-audio" loop preload="auto" autoplay src="assets/backsound/gangsingan.mp3"></audio>
 
   <!-- Master JavaScript Module Entry -->
   <script type="module" src="js/main.js"></script>

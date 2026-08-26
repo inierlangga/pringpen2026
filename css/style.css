@@ -103,6 +103,24 @@ body {
   position: relative;
 }
 
+/* Fixed Parallax Batik Background Layer */
+.bg-parallax-batik {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: 
+    linear-gradient(rgba(5, 14, 23, 0.86), rgba(11, 29, 48, 0.90)),
+    url('../assets/icons/batik2.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -2;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
 body.preloader-active {
   overflow: hidden !important;
   height: 100vh;
@@ -2295,7 +2313,7 @@ button, input, textarea, select {
 }
 
 /* ==========================================================================
-   8. FLOATING AUDIO BACKSOUND CONTROLLER
+   8. FLOATING CD AUDIO CONTROLLER (Spinning CD Music Disc)
    ========================================================================== */
 .audio-control-wrap {
   position: fixed;
@@ -2303,111 +2321,100 @@ button, input, textarea, select {
   left: 1.5rem;
   z-index: 90;
   pointer-events: auto;
-  transition: transform var(--transition-normal), opacity var(--transition-normal);
 }
 
-.audio-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  background: rgba(11, 29, 48, 0.85);
-  border: 1px solid rgba(249, 168, 38, 0.35);
-  border-radius: var(--radius-full);
-  padding: 0.45rem 0.95rem 0.45rem 0.85rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: var(--color-gold);
-  font-family: var(--font-body);
-  font-size: 0.775rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+.audio-cd-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
-  transition: all var(--transition-fast);
-  user-select: none;
+  outline: none;
+  display: block;
+  transition: transform var(--transition-normal), filter var(--transition-normal);
 }
 
-.audio-toggle-btn:hover {
-  transform: translateY(-2px);
-  background: rgba(16, 42, 67, 0.95);
-  border-color: var(--color-accent);
-  box-shadow: 0 6px 20px rgba(249, 168, 38, 0.25);
-  color: var(--color-accent-light);
+.audio-cd-btn:hover {
+  transform: scale(1.08);
 }
 
-/* Audio Wave Equalizer Animation (When Playing) */
-.audio-wave {
+.cd-disc-wrapper {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
-  gap: 2.5px;
-  height: 14px;
+  justify-content: center;
+  transition: box-shadow var(--transition-normal);
 }
 
-.audio-wave .bar {
-  display: inline-block;
-  width: 2.5px;
-  background: var(--color-accent);
-  border-radius: 2px;
-  animation: waveJump 1.2s ease-in-out infinite alternate;
+.audio-cd-btn:hover .cd-disc-wrapper {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
 }
 
-.audio-wave .bar-1 {
-  height: 6px;
-  animation-delay: 0s;
+.cd-disc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  animation: spinCD 5s linear infinite;
+  transform-origin: center center;
 }
 
-.audio-wave .bar-2 {
-  height: 14px;
-  animation-delay: 0.3s;
-}
-
-.audio-wave .bar-3 {
-  height: 9px;
-  animation-delay: 0.15s;
-}
-
-@keyframes waveJump {
-  0% {
-    height: 3px;
+@keyframes spinCD {
+  from {
+    transform: rotate(0deg);
   }
-  50% {
-    height: 14px;
-  }
-  100% {
-    height: 5px;
+  to {
+    transform: rotate(360deg);
   }
 }
 
 /* State: Playing */
-.audio-control-wrap.playing .audio-wave {
-  display: flex;
+.audio-control-wrap.playing .cd-disc-img {
+  animation-play-state: running;
 }
 
-.audio-control-wrap.playing .audio-icon-muted {
-  display: none;
-}
-
-.audio-control-wrap.playing .audio-toggle-btn {
-  border-color: rgba(249, 168, 38, 0.55);
+.audio-control-wrap.playing .cd-center-indicator {
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
 }
 
 /* State: Paused */
-.audio-control-wrap.paused .audio-wave {
-  display: none;
+.audio-control-wrap.paused .cd-disc-img {
+  animation-play-state: paused;
+  filter: brightness(0.85) saturate(0.8);
 }
 
-.audio-control-wrap.paused .audio-icon-muted {
-  display: block;
-  color: var(--color-text-muted);
+.cd-center-indicator {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(7, 19, 31, 0.85);
+  border: 1px solid var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  z-index: 2;
 }
 
-.audio-control-wrap.paused .audio-label {
-  color: var(--color-text-muted);
+.cd-play-icon {
+  margin-left: 2px;
+  color: var(--color-accent);
 }
 
-.audio-control-wrap.paused .audio-toggle-btn {
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(11, 29, 48, 0.75);
+.audio-control-wrap.paused .cd-center-indicator {
+  opacity: 1;
+  transform: scale(1);
 }
 
 @media (max-width: 480px) {
@@ -2416,8 +2423,18 @@ button, input, textarea, select {
     left: 1rem;
   }
 
-  .audio-toggle-btn {
-    padding: 0.4rem 0.8rem 0.4rem 0.75rem;
-    font-size: 0.725rem;
+  .cd-disc-wrapper {
+    width: 46px;
+    height: 46px;
+  }
+
+  .cd-center-indicator {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cd-play-icon {
+    width: 11px;
+    height: 11px;
   }
 }

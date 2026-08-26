@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <!-- Vinyl Disc Gradient -->
+    <radialGradient id="vinylBody" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#07131F" />
+      <stop offset="35%" stop-color="#0B1D30" />
+      <stop offset="38%" stop-color="#050C14" />
+      <stop offset="50%" stop-color="#102A43" />
+      <stop offset="65%" stop-color="#050C14" />
+      <stop offset="78%" stop-color="#0F2438" />
+      <stop offset="85%" stop-color="#07131F" />
+      <stop offset="95%" stop-color="#14324F" />
+      <stop offset="100%" stop-color="#04090F" />
+    </radialGradient>
+
+    <!-- Vinyl Gloss / Sheen Refraction -->
+    <linearGradient id="vinylSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F9A826" stop-opacity="0.25" />
+      <stop offset="25%" stop-color="#ffffff" stop-opacity="0.08" />
+      <stop offset="50%" stop-color="#000000" stop-opacity="0.4" />
+      <stop offset="75%" stop-color="#ffffff" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#F9A826" stop-opacity="0.25" />
+    </linearGradient>
+
+    <!-- Gold Metallic Rim Gradient -->
+    <linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" />
+      <stop offset="30%" stop-color="#D98200" />
+      <stop offset="50%" stop-color="#FFF3A8" />
+      <stop offset="70%" stop-color="#E5B25D" />
+      <stop offset="100%" stop-color="#8B4513" />
+    </linearGradient>
+
+    <!-- Center Label Gradient -->
+    <radialGradient id="centerLabel" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1C4066" />
+      <stop offset="70%" stop-color="#102A43" />
+      <stop offset="95%" stop-color="#0B1D30" />
+      <stop offset="100%" stop-color="#F9A826" />
+    </radialGradient>
+  </defs>
+
+  <!-- 1. Outer Gold Rim -->
+  <circle cx="100" cy="100" r="98" fill="none" stroke="url(#goldRim)" stroke-width="3" />
+  
+  <!-- 2. Main Vinyl Disc Base -->
+  <circle cx="100" cy="100" r="96" fill="url(#vinylBody)" />
+
+  <!-- 3. Vinyl Concentric Sound Grooves -->
+  <circle cx="100" cy="100" r="91" fill="none" stroke="rgba(249, 168, 38, 0.15)" stroke-width="0.75" />
+  <circle cx="100" cy="100" r="86" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="0.5" />
+  <circle cx="100" cy="100" r="81" fill="none" stroke="rgba(249, 168, 38, 0.12)" stroke-width="0.75" />
+  <circle cx="100" cy="100" r="76" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="0.5" />
+  <circle cx="100" cy="100" r="71" fill="none" stroke="rgba(249, 168, 38, 0.1)" stroke-width="0.75" />
+  <circle cx="100" cy="100" r="66" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="0.5" />
+  <circle cx="100" cy="100" r="61" fill="none" stroke="rgba(249, 168, 38, 0.15)" stroke-width="0.75" />
+  <circle cx="100" cy="100" r="56" fill="none" stroke="rgba(255, 255, 255, 0.06)" stroke-width="0.5" />
+  <circle cx="100" cy="100" r="51" fill="none" stroke="rgba(249, 168, 38, 0.12)" stroke-width="0.75" />
+  <circle cx="100" cy="100" r="46" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="0.5" />
+
+  <!-- 4. Gloss Sheen Overlays -->
+  <path d="M 100,4 A 96,96 0 0,1 196,100 L 100,100 Z" fill="url(#vinylSheen)" opacity="0.4" />
+  <path d="M 100,196 A 96,96 0 0,1 4,100 L 100,100 Z" fill="url(#vinylSheen)" opacity="0.4" />
+
+  <!-- 5. Center Label Area -->
+  <circle cx="100" cy="100" r="42" fill="url(#centerLabel)" stroke="url(#goldRim)" stroke-width="2.5" />
+
+  <!-- 6. Batik / Ethnic Ornaments in Center Label -->
+  <circle cx="100" cy="100" r="38" fill="none" stroke="rgba(249, 168, 38, 0.35)" stroke-width="1" stroke-dasharray="3, 3" />
+
+  <!-- 7. Center Gunungan / Lantern Icon -->
+  <!-- Golden Crown / Gunungan Shape -->
+  <g transform="translate(100, 95) scale(0.65)">
+    <!-- Gunungan Outline -->
+    <path d="M0,-24 C-4,-14 -18,-2 -16,14 C-14,24 -4,26 0,26 C4,26 14,24 16,14 C18,-2 4,-14 0,-24 Z" 
+          fill="rgba(249, 168, 38, 0.15)" stroke="url(#goldRim)" stroke-width="2" />
+    <!-- Center Stupa / Flame -->
+    <path d="M0,-16 C-2,-10 -6,0 0,8 C6,0 2,-10 0,-16 Z" fill="url(#goldRim)" />
+    <!-- Wing Ornaments -->
+    <path d="M-12,8 Q-22,14 -12,20" fill="none" stroke="#FFD700" stroke-width="1.5" />
+    <path d="M12,8 Q22,14 12,20" fill="none" stroke="#FFD700" stroke-width="1.5" />
+  </g>
+
+  <!-- 8. Circular Spindle Hole -->
+  <circle cx="100" cy="100" r="10" fill="#07131F" stroke="url(#goldRim)" stroke-width="2.5" />
+  <circle cx="100" cy="100" r="4" fill="#04080D" />
+</svg>
