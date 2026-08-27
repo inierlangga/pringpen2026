@@ -67,30 +67,51 @@ function unlockAudioContext() {
   }
 }
 
-export function playAudioDirectly() {
+export function playAudioDirectly(delayMs = 0) {
   if (hasUserManuallyPaused) return;
   const audio = getAudioElement();
   if (!audio) return;
 
   unlockAudioContext();
 
-  try {
-    audio.muted = false;
-    audio.volume = 0.4;
-  } catch (err) {
-    // iOS Safari does not allow volume mutation via JS
-  }
+  const executePlay = () => {
+    try {
+      audio.muted = false;
+      audio.volume = 0.4;
+    } catch (err) {
+      // iOS Safari does not allow volume mutation via JS
+    }
 
-  const playPromise = audio.play();
-  if (playPromise !== undefined) {
-    playPromise
-      .then(() => {
-        updateUI(true);
-      })
-      .catch(() => {
-        // If play failed due to browser restriction, keep paused state
-        updateUI(false);
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          updateUI(true);
+        })
+        .catch(() => {
+          // If play failed due to browser restriction, keep paused state
+          updateUI(false);
+        });
+    }
+  };
+
+  if (delayMs > 0) {
+    // Prime audio on mobile by attempting to play and immediately pause synchronously,
+    // which unlocks the audio element for the delayed execution.
+    const primePromise = audio.play();
+    if (primePromise !== undefined) {
+      primePromise.then(() => {
+        audio.pause();
+        setTimeout(executePlay, delayMs);
+      }).catch(() => {
+        setTimeout(executePlay, delayMs);
       });
+    } else {
+      audio.pause();
+      setTimeout(executePlay, delayMs);
+    }
+  } else {
+    executePlay();
   }
 }
 

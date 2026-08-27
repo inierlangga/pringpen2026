@@ -43,8 +43,17 @@ export function initPreloader() {
     }
     isDismissed = true;
 
-    // Direct synchronous audio playback inside user tap event
-    playAudioDirectly();
+    // Direct synchronous audio playback (delayed by 2000ms so curtain SFX finishes first)
+    playAudioDirectly(1200);
+
+    // Play curtain opening sound effect
+    try {
+      const curtainSfx = new Audio('assets/backsound/tirai.mp3?v=2');
+      curtainSfx.volume = 0.7; // Adjust volume as needed
+      curtainSfx.play().catch(e => console.warn('Could not play curtain sfx:', e));
+    } catch (err) {
+      console.warn('Audio API error:', err);
+    }
 
     // Trigger opening split-curtain animation
     preloader.classList.add('loaded');
@@ -55,7 +64,7 @@ export function initPreloader() {
     // Remove from layout after animation completes
     setTimeout(() => {
       preloader.style.display = 'none';
-    }, 600);
+    }, 1200);
   };
 
   if (enterBtn) {
