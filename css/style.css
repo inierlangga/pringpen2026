@@ -108,8 +108,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0;
   background-image: 
     linear-gradient(rgba(5, 14, 23, 0.86), rgba(11, 29, 48, 0.90)),
     url('../assets/icons/batik2.jpg');
@@ -118,7 +118,10 @@ body {
   background-size: cover;
   z-index: -2;
   pointer-events: none;
-  transform: translateZ(0);
+  /* Hardware acceleration to prevent mobile scroll jumping/wiggle */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 body.preloader-active {
