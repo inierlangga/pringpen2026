@@ -163,31 +163,7 @@ export function initBacksound() {
     toggleBtn.addEventListener('touchend', toggleAudio, { passive: false });
   }
 
-  // Attempt initial playback on desktop if already permitted
-  playAudioDirectly();
-
-  // Mobile & Global gesture listeners for auto-start:
-  // Exclude taps on the audio toggle controller so it doesn't immediately unpause when tapped!
-  const gestureEvents = ['touchend', 'click', 'pointerup', 'keydown'];
-
-  const handleGlobalGesture = (e) => {
-    // Ignore gesture if user tapped the audio button
-    if (e && e.target && (e.target.closest('#audio-control') || e.target.closest('#audio-toggle-btn'))) {
-      return;
-    }
-
-    if (!hasUserManuallyPaused && audio.paused) {
-      playAudioDirectly();
-    }
-
-    gestureEvents.forEach(evt => {
-      window.removeEventListener(evt, handleGlobalGesture, true);
-      document.removeEventListener(evt, handleGlobalGesture, true);
-    });
-  };
-
-  gestureEvents.forEach(evt => {
-    window.addEventListener(evt, handleGlobalGesture, { capture: true, passive: true });
-    document.addEventListener(evt, handleGlobalGesture, { capture: true, passive: true });
-  });
+  // Note: We no longer auto-play audio here on page load.
+  // The preloader (js/preloader.js) is strictly responsible for starting the background music
+  // when the user explicitly clicks the "MASUK" button.
 }
