@@ -8,6 +8,7 @@ let globalControlWrap = null;
 let globalToggleBtn = null;
 let hasUserManuallyPaused = false;
 let audioContext = null;
+let lastToggleTime = 0;
 
 function getAudioElement() {
   if (!globalAudio) {
@@ -87,7 +88,7 @@ export function playAudioDirectly() {
         updateUI(true);
       })
       .catch(() => {
-        // If play failed due to browser restriction, keep paused state for next touch
+        // If play failed due to browser restriction, keep paused state
         updateUI(false);
       });
   }
@@ -102,7 +103,18 @@ export function pauseAudio() {
 }
 
 export function toggleAudio(e) {
-  if (e) e.stopPropagation();
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  const now = Date.now();
+  // Prevent double triggers on mobile touch (e.g. touchend followed by synthesized click)
+  if (now - lastToggleTime < 350) {
+    return;
+  }
+  lastToggleTime = now;
+
   const audio = getAudioElement();
   if (!audio) return;
 
@@ -127,20 +139,26 @@ export function initBacksound() {
 
   if (toggleBtn) {
     toggleBtn.addEventListener('click', toggleAudio);
-    toggleBtn.addEventListener('touchend', toggleAudio);
+    toggleBtn.addEventListener('touchend', toggleAudio, { passive: false });
   }
 
   // Attempt initial playback on desktop if already permitted
   playAudioDirectly();
 
-  // Mobile & Global gesture listeners:
-  // Any tap / touch anywhere on the page guarantees audio starts immediately
+  // Mobile & Global gesture listeners for auto-start:
+  // Exclude taps on the audio toggle controller so it doesn't immediately unpause when tapped!
   const gestureEvents = ['touchend', 'click', 'pointerup', 'keydown'];
 
-  const handleGlobalGesture = () => {
+  const handleGlobalGesture = (e) => {
+    // Ignore gesture if user tapped the audio button
+    if (e && e.target && (e.target.closest('#audio-control') || e.target.closest('#audio-toggle-btn'))) {
+      return;
+    }
+
     if (!hasUserManuallyPaused && audio.paused) {
       playAudioDirectly();
     }
+
     gestureEvents.forEach(evt => {
       window.removeEventListener(evt, handleGlobalGesture, true);
       document.removeEventListener(evt, handleGlobalGesture, true);

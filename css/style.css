@@ -2459,6 +2459,8 @@ button, input, textarea, select {
   cursor: pointer;
   outline: none;
   display: block;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: transform var(--transition-normal), filter var(--transition-normal);
 }
 
@@ -2476,6 +2478,10 @@ button, input, textarea, select {
   align-items: center;
   justify-content: center;
   transition: box-shadow var(--transition-normal);
+}
+
+.cd-disc-wrapper * {
+  pointer-events: none;
 }
 
 .audio-cd-btn:hover .cd-disc-wrapper {
