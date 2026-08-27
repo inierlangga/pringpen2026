@@ -56,18 +56,27 @@ export function initEmbers() {
   resize();
 
   class Ember {
-    constructor(initScatter = true) {
-      this.reset(initScatter);
+    constructor(spawnType = 'initialBottom') {
+      this.reset(spawnType);
     }
 
-    reset(initScatter = false) {
+    reset(spawnType = 'respawn') {
       this.x = Math.random() * width;
-      this.y = initScatter ? Math.random() * height : height + Math.random() * 40;
+      
+      if (spawnType === 'scatter') {
+        this.y = Math.random() * height; // Spread across screen
+      } else if (spawnType === 'initialBottom') {
+        // Spread just slightly below the screen so they don't die before entering
+        this.y = height + (Math.random() * 150); 
+      } else {
+        this.y = height + Math.random() * 30; // Normal respawn
+      }
+      
       this.size = Math.random() * 2 + 1; // 1px - 3px
-      this.speedY = -(Math.random() * 0.8 + 0.4); // Gentle upward rise
+      this.speedY = -(Math.random() * 1.0 + 0.5); // Slightly faster upward rise
       this.speedX = (Math.random() - 0.5) * 0.6;
-      this.life = initScatter ? Math.random() * 0.8 + 0.2 : 1.0;
-      this.decay = Math.random() * 0.003 + 0.0015;
+      this.life = Math.random() * 0.5 + 1.0; // Life > 1.0 gives them time to rise before fading
+      this.decay = Math.random() * 0.0015 + 0.001; // Slower decay so they travel further
       this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
       this.glowTexture = createGlowTexture(this.color, this.size);
       this.wobbleSpeed = Math.random() * 0.02 + 0.01;
@@ -80,7 +89,7 @@ export function initEmbers() {
       this.life -= this.decay;
 
       if (this.life <= 0 || this.y < -20) {
-        this.reset(false);
+        this.reset('respawn');
       }
     }
 
@@ -92,7 +101,8 @@ export function initEmbers() {
   }
 
   for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(new Ember(true));
+    // Spawn them spread out below the screen so they rise up smoothly
+    particles.push(new Ember('initialBottom'));
   }
 
   function animate() {

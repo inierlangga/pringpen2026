@@ -7,6 +7,7 @@
  */
 
 import { playAudioDirectly } from './audio.js';
+import { initEmbers } from './embers.js';
 
 export function initPreloader() {
   const preloader = document.getElementById('preloader');
@@ -44,7 +45,12 @@ export function initPreloader() {
     isDismissed = true;
 
     // Direct synchronous audio playback (delayed by 2000ms so curtain SFX finishes first)
-    playAudioDirectly(1200);
+    playAudioDirectly(2000);
+    
+    // Start embers animation alongside background music
+    setTimeout(() => {
+      initEmbers();
+    }, 2000);
 
     // Play curtain opening sound effect
     try {
