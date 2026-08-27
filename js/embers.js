@@ -94,7 +94,8 @@ export function initEmbers() {
     }
 
     draw() {
-      ctx.globalAlpha = Math.max(0, Math.min(1, this.life * 0.85));
+      // Reduce maximum opacity (from 1.0 to 0.55) to make embers more subtle
+      ctx.globalAlpha = Math.max(0, Math.min(0.55, this.life * 0.55));
       const texSize = this.glowTexture.width;
       ctx.drawImage(this.glowTexture, this.x - texSize / 2, this.y - texSize / 2);
     }
