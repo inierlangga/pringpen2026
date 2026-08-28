@@ -9,6 +9,22 @@ let globalToggleBtn = null;
 let hasUserManuallyPaused = false;
 let audioContext = null;
 let lastToggleTime = 0;
+let toastTimer = null;
+
+export function showAudioToast(durationMs = 5000) {
+  const toast = document.getElementById('audio-info-toast');
+  if (!toast) return;
+
+  toast.classList.add('show-toast');
+
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+  }
+
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show-toast');
+  }, durationMs);
+}
 
 function getAudioElement() {
   if (!globalAudio) {
@@ -38,6 +54,8 @@ function updateUI(playing) {
       toggleBtn.setAttribute('aria-label', 'Jeda Musik Latar');
       toggleBtn.setAttribute('title', 'Jeda Musik Latar');
     }
+    // Reveal song title & artist toast for 5.5 seconds
+    showAudioToast(5500);
   } else {
     if (controlWrap) {
       controlWrap.classList.remove('playing');
@@ -46,6 +64,10 @@ function updateUI(playing) {
     if (toggleBtn) {
       toggleBtn.setAttribute('aria-label', 'Putar Musik Latar');
       toggleBtn.setAttribute('title', 'Putar Musik Latar');
+    }
+    const toast = document.getElementById('audio-info-toast');
+    if (toast) {
+      toast.classList.remove('show-toast');
     }
   }
 }
@@ -161,6 +183,12 @@ export function initBacksound() {
   if (toggleBtn) {
     toggleBtn.addEventListener('click', toggleAudio);
     toggleBtn.addEventListener('touchend', toggleAudio, { passive: false });
+  }
+
+  const toast = document.getElementById('audio-info-toast');
+  if (toast) {
+    toast.addEventListener('click', toggleAudio);
+    toast.addEventListener('touchend', toggleAudio, { passive: false });
   }
 
   // Note: We no longer auto-play audio here on page load.

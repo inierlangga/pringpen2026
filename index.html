@@ -662,9 +662,23 @@
         </div>
       </div>
     </button>
+
+    <!-- Music Info Toast Pill (Shows on play, auto collapses after brief duration) -->
+    <div id="audio-info-toast" class="audio-info-toast" aria-live="polite">
+      <div class="audio-info-equalizer">
+        <span class="eq-bar eq-bar-1"></span>
+        <span class="eq-bar eq-bar-2"></span>
+        <span class="eq-bar eq-bar-3"></span>
+      </div>
+      <div class="audio-info-text">
+        <span class="audio-info-title">GANGSINGAN</span>
+        <span class="audio-info-artist">Donkgedank</span>
+      </div>
+    </div>
   </div>
 
-  <!-- Background Music Audio Element (Looped & Autoplay with Mobile Inline Support) -->
+  <!-- Sound Effects & Background Music Elements (Preloaded with Mobile Inline Support) -->
+  <audio id="curtain-audio" preload="auto" playsinline webkit-playsinline src="assets/backsound/tirai.mp3"></audio>
   <audio id="bg-audio" loop preload="auto" playsinline webkit-playsinline src="assets/backsound/gangsingan.mp3"></audio>
 
   <!-- Master JavaScript Module Entry -->

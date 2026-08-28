@@ -45,6 +45,9 @@ export function initScrollAnimations() {
       if (entry.isIntersecting) {
         entry.target.classList.add('reveal-visible');
         obs.unobserve(entry.target);
+        setTimeout(() => {
+          entry.target.classList.remove('delay-100', 'delay-200', 'delay-300', 'delay-400');
+        }, 900);
       }
     });
   }, { root: null, rootMargin: '0px 0px -40px 0px', threshold: 0.1 });

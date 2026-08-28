@@ -12,7 +12,15 @@ import { initEmbers } from './embers.js';
 export function initPreloader() {
   const preloader = document.getElementById('preloader');
   const enterBtn = document.getElementById('preloader-enter-btn');
+  const curtainAudio = document.getElementById('curtain-audio');
   if (!preloader) return;
+
+  // Preload curtain sound effect so mobile devices play it with zero latency
+  if (curtainAudio) {
+    try {
+      curtainAudio.load();
+    } catch (e) {}
+  }
 
   // Lock body scroll during preloader
   document.body.classList.add('preloader-active');
@@ -44,6 +52,21 @@ export function initPreloader() {
     }
     isDismissed = true;
 
+    // Play curtain opening sound effect instantly with zero latency
+    try {
+      if (curtainAudio) {
+        curtainAudio.currentTime = 0;
+        curtainAudio.volume = 0.75;
+        curtainAudio.play().catch(e => console.warn('Could not play curtain sfx:', e));
+      } else {
+        const fallbackSfx = new Audio('assets/backsound/tirai.mp3?v=2');
+        fallbackSfx.volume = 0.75;
+        fallbackSfx.play().catch(() => {});
+      }
+    } catch (err) {
+      console.warn('Audio API error:', err);
+    }
+
     // Direct synchronous audio playback (delayed by 2000ms so curtain SFX finishes first)
     playAudioDirectly(2000);
     
@@ -52,25 +75,16 @@ export function initPreloader() {
       initEmbers();
     }, 2000);
 
-    // Play curtain opening sound effect
-    try {
-      const curtainSfx = new Audio('assets/backsound/tirai.mp3?v=2');
-      curtainSfx.volume = 0.7; // Adjust volume as needed
-      curtainSfx.play().catch(e => console.warn('Could not play curtain sfx:', e));
-    } catch (err) {
-      console.warn('Audio API error:', err);
-    }
-
     // Trigger opening split-curtain animation
     preloader.classList.add('loaded');
 
     // Unlock body scroll
     document.body.classList.remove('preloader-active');
 
-    // Remove from layout after animation completes
+    // Remove from layout after animation completes (1.6s)
     setTimeout(() => {
       preloader.style.display = 'none';
-    }, 1200);
+    }, 1600);
   };
 
   if (enterBtn) {
