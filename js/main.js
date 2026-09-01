@@ -20,8 +20,8 @@ export const categoriesData = [
     title: "Monolog",
     icon: "assets/icons/12.png",
     description: "Panggung seni peran tunggal lakon bertema Lentera Nusa yang menggugah emosi, penjiwaan karakter mendalam, dan pesan moral luhur.",
-    regLink: "#",
-    guidebookLink: "#",
+    regLink: "https://staner.id/DaftarLakuLakonPringPen",
+    guidebookLink: "https://drive.google.com/drive/folders/1Ek2RPYQnwwZVt7Rfxapz4yZd7gB_iGmZ?usp=sharing",
     badge: "Seni Peran"
   },
   {
@@ -29,8 +29,8 @@ export const categoriesData = [
     title: "Voice Over",
     icon: "assets/icons/13.png",
     description: "Kompetisi seni olah vokal, intonasi, dan ekspresi narasi suara bernuansa Nusantara yang komunikatif, hidup, dan memikat pendengar.",
-    regLink: "#",
-    guidebookLink: "#",
+    regLink: "https://staner.id/DaftarLarasSuaraPringPen",
+    guidebookLink: "https://drive.google.com/drive/folders/1nZd2cgigKeWug6SL9DL5yjgUzpgMYEH4?usp=sharing",
     badge: "Seni Suara"
   },
   {
@@ -38,8 +38,8 @@ export const categoriesData = [
     title: "Infografis",
     icon: "assets/icons/14.png",
     description: "Karya desain visual informatif dan kreatif yang mengemas pesan, kekayaan nilai budaya, serta wawasan Nusantara secara estetis.",
-    regLink: "#",
-    guidebookLink: "#",
+    regLink: "https://staner.id/DaftarRupaAksaraPringPen",
+    guidebookLink: "https://drive.google.com/drive/folders/1M_kgSUdcwcw9NYdmjsks8SR6qlBbT-xm?usp=sharing",
     badge: "Desain Visual"
   },
   {
@@ -47,8 +47,8 @@ export const categoriesData = [
     title: "Tari Tradisional",
     icon: "assets/icons/11.png",
     description: "Kompetisi seni gerak tari tradisional maupun kreasi daerah yang mengekspresikan keanggunan dan kekayaan budaya Nusantara.",
-    regLink: "#",
-    guidebookLink: "#",
+    regLink: "https://staner.id/DaftarKarsaTariPringPen",
+    guidebookLink: "https://drive.google.com/drive/folders/1sSlqdMsbAL390qxcGs9r5H7MBUWdya2G?usp=sharing",
     badge: "Seni Tari"
   }
 ];
@@ -91,7 +91,7 @@ function initCategoryCards() {
       <p class="category-desc">${cat.description}</p>
       <div class="category-actions">
         <!-- Tombol Daftar -->
-        <a href="${cat.regLink}" class="btn btn-primary btn-sm" aria-label="Daftar Lomba ${cat.title}">
+        <a href="${cat.regLink}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" aria-label="Daftar Lomba ${cat.title}">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7.5" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
           Daftar
         </a>
