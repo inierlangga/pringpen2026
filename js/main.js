@@ -290,38 +290,42 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initBacksound();
   init3DTilt();
+  initFooterCpModal();
   initCustomCursor();
 });
 
 function init3DTilt() {
-  const tiltElements = document.querySelectorAll('.category-card, .countdown-wrapper');
-  
-  tiltElements.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      card.style.transition = 'transform 0.1s ease'; 
-    });
+  // 3D tilt hover dinonaktifkan sesuai permintaan pengguna untuk card yang lebih stabil & clean
+  return;
+}
 
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const tiltIntensity = 7;
-      const scaleValue = 1.05;
-      
-      const rotateX = ((y - centerY) / centerY) * -tiltIntensity;
-      const rotateY = ((x - centerX) / centerX) * tiltIntensity;
-      
-      card.style.transform = `perspective(1000px) scale(${scaleValue}) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
+function initFooterCpModal() {
+  const openBtn = document.getElementById('open-footer-cp-modal-btn');
+  const modal = document.getElementById('footer-cp-modal');
+  const closeBtn = document.getElementById('footer-cp-modal-close-btn');
+  if (!modal) return;
 
-    card.addEventListener('mouseleave', () => {
-      card.style.transition = 'transform 0.5s ease'; 
-      card.style.transform = `perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)`;
-    });
+  function openModal() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (openBtn) openBtn.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
   });
 }
 
