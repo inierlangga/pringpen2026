@@ -2184,46 +2184,111 @@ button, input, textarea, select {
 }
 
 .footer-cp-modal-dialog {
-  max-width: 620px;
+  max-width: 540px;
 }
 
 .footer-cp-modal-desc {
-  font-size: 0.825rem;
+  font-size: 0.815rem;
   color: var(--color-text-muted);
-  margin-bottom: 1.1rem;
-  line-height: 1.5;
+  margin-bottom: 0.85rem;
+  line-height: 1.45;
 }
 
-.footer-cp-groups {
+.footer-cp-compact-list {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  max-height: 60vh;
-  overflow-y: auto;
-  padding-right: 0.35rem;
+  gap: 0.55rem;
 }
 
-.footer-cp-cat-group {
-  background: rgba(16, 42, 67, 0.5);
-  border: 1px solid rgba(249, 168, 38, 0.25);
+.footer-cp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.95rem;
+  background: rgba(16, 42, 67, 0.55);
+  border: 1px solid rgba(249, 168, 38, 0.22);
   border-radius: var(--radius-md);
-  padding: 0.85rem 1rem;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
-.footer-cp-cat-title {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  color: var(--color-accent);
-  margin-bottom: 0.65rem;
+.footer-cp-row:hover {
+  border-color: rgba(249, 168, 38, 0.5);
+  background: rgba(16, 42, 67, 0.8);
+}
+
+.footer-cp-cat-info {
   display: flex;
   align-items: center;
   gap: 0.45rem;
+  flex-wrap: wrap;
 }
 
-.footer-cp-cat-persons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.65rem;
+.footer-cp-cat-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--color-text-main);
+  letter-spacing: 0.02em;
+}
+
+.footer-cp-cat-sub {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.footer-cp-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.cp-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(37, 211, 102, 0.14);
+  color: #25d366;
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  padding: 0.32rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.785rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.cp-quick-btn:hover {
+  background: #25d366;
+  color: #0b192c;
+  border-color: #25d366;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.cp-quick-btn svg {
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .footer-cp-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+  }
+  .footer-cp-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+  }
+  .cp-quick-btn {
+    justify-content: center;
+  }
 }
 
 /* Social Media Column (Minimalist Icon + Handle List) */
