@@ -12,33 +12,18 @@
 
 export const calendarEvents = [
   {
-    id: "pendaftaran-lomba",
-    title: "Pendaftaran Peserta Lomba",
-    startDate: "2026-08-17",
-    endDate: "2026-11-30",
-    category: "Pendaftaran",
+    id: "pendaftaran-pengumpulan",
+    title: "Pendaftaran & Pengumpulan Karya",
+    startDate: "2026-09-02",
+    endDate: "2026-12-01",
+    category: "Pendaftaran & Submisi",
     color: "#00D2D3",
     badgeColor: "rgba(0, 210, 211, 0.15)",
-    description: "Pendaftaran resmi seluruh cabang perlombaan seni & budaya PRINGPEN 2026 dibuka secara daring.",
+    description: "Pendaftaran resmi seluruh cabang perlombaan seni & budaya PRINGPEN 2026 serta submisi pengumpulan karya dibuka secara daring.",
     details: [
-      "Terbuka untuk mahasiswa PKN STAN dan umum sesuai ketentuan kategori lomba.",
+      "Terbuka untuk pelajar, mahasiswa, dan umum nasional sesuai ketentuan masing-masing cabang lomba.",
       "Akses formulir pendaftaran dan unduh Panduan (Handbook) di section Kategori Lomba.",
-      "Pastikan melengkapi data identitas dan persyaratan sebelum batas akhir penutupan (30 November 2026)."
-    ]
-  },
-  {
-    id: "pengumpulan-karya",
-    title: "Pengumpulan & Penilaian Karya",
-    startDate: "2026-08-17",
-    endDate: "2026-12-10",
-    category: "Kompetisi & Kurasi",
-    color: "#FACC15",
-    badgeColor: "rgba(250, 204, 21, 0.15)",
-    description: "Periode submit karya digital/rekaman lomba dan proses kurasi bertahap oleh dewan juri ahli.",
-    details: [
-      "Pengumpulan berkas karya video/naskah melalui portal submission yang disediakan panitia.",
-      "Penilaian independen dan objektif oleh praktisi seni profesional serta akademisi budaya.",
-      "Pengumuman finalis dan karya terbaik menjelang malam penganugerahan."
+      "Periode submit karya berlangsung bersamaan hingga batas akhir 1 Desember 2026."
     ]
   },
   {
@@ -49,10 +34,10 @@ export const calendarEvents = [
     color: "#EF4444",
     badgeColor: "rgba(239, 68, 68, 0.15)",
     tag: "TM 1",
-    description: "Sesi pengarahan teknis, sosialisasi tata tertib lomba, dan sesi tanya jawab langsung bersama panitia.",
+    description: "Sesi pengarahan teknis, sosialisasi tata tertib lomba, dan sesi tanya jawab langsung bersama panitia (12 / 19 September 2026).",
     details: [
-      "Pelaksanaan: Sabtu, 12 September 2026 (09.00 WIB - Selesai).",
-      "Format: Hybrid (Daring via Zoom Meeting & Luring di Kampus PKN STAN).",
+      "Pelaksanaan: 12 / 19 September 2026 (09.00 WIB - Selesai).",
+      "Format: Daring (Zoom Meeting) / Hybrid di Kampus PKN STAN.",
       "Wajib dihadiri oleh minimal 1 perwakilan resmi dari tiap tim peserta lomba."
     ]
   },
@@ -64,7 +49,7 @@ export const calendarEvents = [
     color: "#A855F7",
     badgeColor: "rgba(168, 85, 247, 0.15)",
     tag: "TM 2",
-    description: "Pengarahan teknis lanjutan bagi peserta pendaftaran gelombang kedua dan update teknis submission.",
+    description: "Pengarahan teknis lanjutan bagi peserta pendaftaran gelombang kedua dan pemantapan teknis submission.",
     details: [
       "Pelaksanaan: Sabtu, 17 Oktober 2026 (09.00 WIB - Selesai).",
       "Membahas detail teknis pengunggahan karya dan konfirmasi final data peserta.",
@@ -73,8 +58,8 @@ export const calendarEvents = [
   },
   {
     id: "acara-puncak",
-    title: "Acara Puncak: Lentera Nusa",
-    date: "2026-12-12",
+    title: "Pengumuman Pemenang & Acara Puncak",
+    date: "2026-12-13",
     category: "Pentas Akbar",
     color: "#FF6B00",
     badgeColor: "rgba(255, 107, 0, 0.2)",
@@ -82,24 +67,31 @@ export const calendarEvents = [
     description: "Malam puncak penganugerahan pemenang lomba serta pagelaran megah kolaborasi Sabdanusa & Teater Alir bertema Lentera Nusa.",
     details: [
       "Pementasan teater kolosal kolaborasi Teater Alir & tarian tradisi Sabdanusa.",
-      "Awarding piala & apresiasi juara lomba seni tingkat nasional.",
-      "Lokasi: Gedung Auditorium Utama PKN STAN, Bintaro Jaya (Sabtu, 12 Desember 2026)."
+      "Awarding piala, trophy, apresiasi juara lomba seni tingkat nasional.",
+      "Lokasi: Gedung G (Gedung Serbaguna) PKN STAN, Bintaro Jaya (Minggu, 13 Desember 2026)."
     ]
   }
 ];
 
 export const milestoneDates = {
-  "2026-08-17": {
-    eventId: "pendaftaran-lomba",
+  "2026-09-02": {
+    eventId: "pendaftaran-pengumpulan",
     tag: "BUKA",
-    label: "Buka Pendaftaran",
+    label: "Buka Pendaftaran & Submit Karya",
     color: "#00D2D3",
     bg: "rgba(0, 210, 211, 0.18)"
   },
   "2026-09-12": {
     eventId: "tm-1",
     tag: "TM 1",
-    label: "Technical Meeting 1",
+    label: "Technical Meeting 1 (Opsi 1)",
+    color: "#EF4444",
+    bg: "rgba(239, 68, 68, 0.22)"
+  },
+  "2026-09-19": {
+    eventId: "tm-1",
+    tag: "TM 1",
+    label: "Technical Meeting 1 (Opsi 2)",
     color: "#EF4444",
     bg: "rgba(239, 68, 68, 0.22)"
   },
@@ -110,24 +102,17 @@ export const milestoneDates = {
     color: "#A855F7",
     bg: "rgba(168, 85, 247, 0.22)"
   },
-  "2026-11-30": {
-    eventId: "pendaftaran-lomba",
+  "2026-12-01": {
+    eventId: "pendaftaran-pengumpulan",
     tag: "TUTUP",
-    label: "Tutup Pendaftaran",
-    color: "#EF4444",
-    bg: "rgba(239, 68, 68, 0.22)"
-  },
-  "2026-12-10": {
-    eventId: "pengumpulan-karya",
-    tag: "SUBMIT",
-    label: "Batas Pengumpulan",
+    label: "Batas Akhir Pendaftaran & Submit",
     color: "#FACC15",
     bg: "rgba(250, 204, 21, 0.22)"
   },
-  "2026-12-12": {
+  "2026-12-13": {
     eventId: "acara-puncak",
     tag: "PUNCAK",
-    label: "Malam Puncak",
+    label: "Pengumuman & Acara Puncak",
     color: "#FF6B00",
     bg: "rgba(255, 107, 0, 0.25)"
   }

@@ -1,6 +1,6 @@
 /**
  * PRINGPEN 2026 - Live Countdown Module
- * Target: Sabtu, 12 Desember 2026 (Acara Puncak PRINGPEN 2026)
+ * Target: Minggu, 13 Desember 2026 (Acara Puncak PRINGPEN 2026)
  */
 
 export function initCountdown() {
@@ -12,8 +12,8 @@ export function initCountdown() {
 
   if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-  // Target Date: Sabtu, 12 Desember 2026 08:00:00 WIB (UTC+7)
-  const targetDate = new Date('2026-12-12T08:00:00+07:00').getTime();
+  // Target Date: Minggu, 13 Desember 2026 08:00:00 WIB (UTC+7)
+  const targetDate = new Date('2026-12-13T08:00:00+07:00').getTime();
 
   function pad(num) {
     return num < 10 ? `0${num}` : `${num}`;

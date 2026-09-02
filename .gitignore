@@ -1,0 +1,7 @@
+# Large handbook reference PDFs (hosted on Google Drive)
+handbook/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*.tmp

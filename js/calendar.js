@@ -35,9 +35,9 @@ export function initCalendar() {
     "Jul", "Agt", "Sep", "Okt", "Nov", "Des"
   ];
 
-  // Default focus on August 2026
+  // Default focus on September 2026
   let currentYear = 2026;
-  let currentMonth = 7; // August (0-indexed)
+  let currentMonth = 8; // September (0-indexed)
 
   const realToday = new Date();
 
@@ -82,16 +82,14 @@ export function initCalendar() {
     if (!periodStatusEl) return;
     const m = month + 1;
     if (year === 2026) {
-      if (m === 8) {
-        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>Agustus:</strong> Pendaftaran & Pengumpulan Karya (Mulai 17 Ags)</span>`;
-      } else if (m === 9) {
-        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>September:</strong> Technical Meeting 1 (12 Sep) • Pendaftaran Berjalan</span>`;
+      if (m === 9) {
+        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>September:</strong> Buka Pendaftaran & Submit Karya (2 Sep) • TM 1 (12 / 19 Sep)</span>`;
       } else if (m === 10) {
-        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>Oktober:</strong> Technical Meeting 2 (17 Okt) • Pendaftaran Berjalan</span>`;
+        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>Oktober:</strong> Technical Meeting 2 (17 Okt) • Pendaftaran & Submisi Berjalan</span>`;
       } else if (m === 11) {
-        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>November:</strong> Batas Akhir Penutupan Pendaftaran (30 Nov)</span>`;
+        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>November:</strong> Periode Pendaftaran & Pengumpulan Karya Berjalan</span>`;
       } else if (m === 12) {
-        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>Desember:</strong> Batas Submit Karya (10 Des) & Acara Puncak (12 Des)</span>`;
+        periodStatusEl.innerHTML = `<span>📌</span> <span><strong>Desember:</strong> Batas Akhir Submit (1 Des) & Acara Puncak (13 Des)</span>`;
       } else {
         periodStatusEl.innerHTML = `<span>📌</span> <span>PRINGPEN 2026 — Sabdanusa ✕ Teater Alir PKN STAN</span>`;
       }

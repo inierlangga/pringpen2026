@@ -776,13 +776,33 @@ button, input, textarea, select {
   padding: 0.55rem 1.35rem;
   border-radius: var(--radius-full);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
   transition: all var(--transition-normal);
   line-height: 1.2;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  transition: none;
+}
+
+.btn:hover::before {
+  left: 150%;
+  transition: left 0.6s ease-in-out;
 }
 
 .btn-primary {
@@ -971,16 +991,6 @@ button, input, textarea, select {
   position: relative;
   overflow: hidden;
   transition: transform var(--transition-fast), border-color var(--transition-fast);
-}
-
-.countdown-box::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--color-accent);
 }
 
 .countdown-box:hover {
@@ -1275,429 +1285,377 @@ button, input, textarea, select {
 }
 
 .category-icon-frame {
-  width: 62px;
-  height: 62px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: rgba(16, 42, 67, 0.9);
-  border: 1.5px solid rgba(249, 168, 38, 0.4);
+  background: rgba(16, 42, 67, 0.7);
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.75rem;
   padding: 8px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
-  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-icon-frame::before {
+  content: '';
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  width: 140%;
+  height: 140%;
+  background: rgba(25, 68, 110, 0.85); /* lighter navy/blue for visibility */
+  border-radius: 40%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .category-card:hover .category-icon-frame {
-  transform: scale(1.06) rotate(4deg);
-  border-color: var(--color-accent);
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.category-card:hover .category-icon-frame::before {
+  top: 50%;
+  animation: iconLiquidSpin 4s linear infinite;
+}
+
+@keyframes iconLiquidSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .category-icon-frame img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+.category-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  width: 100%;
 }
 
 .category-name {
   font-size: 1.05rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.15rem;
   color: var(--color-text-main);
-  min-height: 2.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1.2;
+  line-height: 1.25;
+}
+
+.category-subname {
+  font-family: var(--font-display);
+  font-size: 0.775rem;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .category-desc {
   font-size: 0.785rem;
   color: var(--color-text-muted);
-  line-height: 1.45;
-  margin-bottom: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.15rem;
   flex-grow: 1;
+}
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.cat-chip {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-size: 0.675rem;
+  color: var(--color-text-muted);
+  padding: 0.15rem 0.45rem;
+  white-space: nowrap;
 }
 
 .category-actions {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.5rem;
   width: 100%;
 }
 
 .category-actions .btn {
   width: 100%;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.785rem;
-}
-
-/* --------------------------------------------------------------------------
-   SECTION 4: KALENDER INTERAKTIF & AGENDA (#jadwal)
-   -------------------------------------------------------------------------- */
-.schedule-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 1.25rem;
-  align-items: stretch;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-/* Left Panel: Calendar Component (Compact) */
-.calendar-card {
-  background: var(--bg-card);
-  border: 1px solid rgba(249, 168, 38, 0.25);
-  border-radius: var(--radius-lg);
-  padding: 0.95rem 1.15rem;
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-md);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.calendar-header {
+  padding: 0.5rem 0.85rem;
+  font-size: 0.825rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.45rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--border-subtle);
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: var(--radius-full);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
-.calendar-month-title {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--color-accent);
+/* Modal Detail & Kontak Narahubung Lomba */
+.comp-modal-dialog {
+  max-width: 580px;
 }
 
-.calendar-nav-buttons {
+.comp-modal-target {
+  font-size: 0.825rem;
+  color: var(--color-gold);
+  margin-top: 0.35rem;
+  font-weight: 600;
   display: flex;
+  align-items: center;
   gap: 0.35rem;
 }
 
-.calendar-nav-btn {
-  background: rgba(16, 42, 67, 0.8);
-  border: 1px solid rgba(249, 168, 38, 0.3);
+.comp-modal-section {
+  margin-bottom: 1.25rem;
+}
+
+.comp-section-title {
+  font-family: var(--font-display);
+  font-size: 0.925rem;
+  color: var(--color-accent);
+  margin-bottom: 0.45rem;
+  letter-spacing: 0.5px;
+}
+
+.comp-detail-list {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.comp-detail-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
   color: var(--color-text-main);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  line-height: 1.5;
+}
+
+.comp-detail-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
   font-size: 0.75rem;
-  transition: all var(--transition-fast);
+  top: 1px;
 }
 
-.calendar-nav-btn:hover {
-  background: var(--color-accent);
-  color: var(--color-primary-dark);
-  border-color: var(--color-accent);
-}
-
-.calendar-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  font-size: 0.68rem;
-  font-weight: 700;
+.comp-handbook-note {
+  margin-top: 0.7rem;
+  font-size: 0.8rem;
   color: var(--color-gold);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.35rem;
-}
-
-.calendar-days-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-}
-
-.calendar-period-status {
-  background: rgba(16, 42, 67, 0.6);
-  border: 1px solid rgba(249, 168, 38, 0.25);
-  border-radius: var(--radius-sm);
-  padding: 0.35rem 0.65rem;
-  font-size: 0.725rem;
-  color: var(--color-text-muted);
+  font-style: italic;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  margin-bottom: 0.6rem;
-  line-height: 1.3;
+  gap: 0.35rem;
+  opacity: 0.9;
+  line-height: 1.4;
 }
 
-.calendar-period-status strong {
-  color: var(--color-accent-light);
+.comp-contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.4rem;
 }
 
-.calendar-day-cell {
-  aspect-ratio: 1 / 1;
+.comp-cp-card {
+  background: rgba(16, 42, 67, 0.65);
+  border: 1px solid rgba(249, 168, 38, 0.25);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.comp-cp-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  font-size: 0.775rem;
-  font-weight: 600;
+}
+
+.comp-cp-name {
+  font-weight: 700;
+  font-size: 0.875rem;
   color: var(--color-text-main);
-  background: rgba(7, 19, 31, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  cursor: pointer;
-  position: relative;
+}
+
+.comp-cp-phone {
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  color: var(--color-text-muted);
+}
+
+.comp-cp-wa-btn {
+  background: #25D366;
+  color: #07131F !important;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.725rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   transition: all var(--transition-fast);
-  padding: 2px;
+  white-space: nowrap;
 }
 
-.calendar-day-cell .day-number {
-  line-height: 1;
+.comp-cp-wa-btn:hover {
+  background: #20BA5A;
+  color: #000 !important;
+  transform: translateY(-1px);
 }
 
-.calendar-day-cell.other-month {
-  color: var(--color-text-subtle);
-  opacity: 0.22;
-  cursor: default;
-  background: transparent;
-  border-color: transparent;
+/* --------------------------------------------------------------------------
+   SECTION 4: TIMELINE AGENDA (#jadwal)
+   -------------------------------------------------------------------------- */
+.timeline-layout {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem 0;
 }
 
-.calendar-day-cell.in-range-cell {
-  background: rgba(16, 42, 67, 0.35);
-  border-color: rgba(249, 168, 38, 0.15);
+.timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 32px;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(249, 168, 38, 0.4) 10%, rgba(249, 168, 38, 0.4) 90%, transparent);
+  border-radius: 2px;
 }
 
-/* Today Indicator */
-.calendar-day-cell.is-today .day-number {
+.timeline-item {
+  position: relative;
+  padding-left: 80px;
+  margin-bottom: 2.5rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 19px;
+  top: 10px;
+  width: 28px;
+  height: 28px;
+  background: rgba(11, 29, 48, 1);
+  border: 2px solid var(--event-color);
+  border-radius: 4px; /* diamond shape */
+  transform: rotate(45deg);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid var(--color-accent);
-  color: #FFFFFF;
-  font-weight: 800;
-  font-size: 0.8rem;
-  background: rgba(249, 168, 38, 0.3);
-}
-
-/* Milestone Day Cell (Saran 2: Bold Highlight & Visible Tag) */
-.calendar-day-cell.is-milestone {
-  border-width: 1.5px;
-  cursor: pointer;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 2;
 }
 
-.calendar-day-cell.is-milestone:hover {
-  transform: scale(1.08);
-  z-index: 5;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-}
-
-.calendar-day-cell.is-milestone .day-number {
-  font-size: 0.825rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  margin-bottom: 2px;
-}
-
-.milestone-badge {
-  display: inline-block;
-  font-size: 0.575rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  padding: 1px 4px;
-  border-radius: 3px;
-  line-height: 1.1;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-/* Two-Way Focus & Highlight Pulse (Saran 3) */
-.calendar-day-cell.focused-pulse {
-  animation: cellPulse 1.2s ease-in-out 2;
-  z-index: 10;
-}
-
-@keyframes cellPulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(249, 168, 38, 0.7);
-  }
-  50% {
-    transform: scale(1.15);
-    box-shadow: 0 0 0 4px rgba(249, 168, 38, 0.9);
-  }
-}
-
-/* Thin Event Range Stripes (Canon Cup Style, Sleek & Compact) */
-.event-stripes-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  width: 75%;
-  margin-top: 2px;
-}
-
-.event-stripe-line {
-  height: 2.5px;
-  width: 100%;
+.timeline-dot-inner {
+  width: 12px;
+  height: 12px;
+  background: var(--event-color);
   border-radius: 2px;
-  opacity: 0.85;
-  transition: transform var(--transition-fast), height var(--transition-fast), opacity var(--transition-fast);
+  transition: all 0.5s ease;
+  opacity: 0.4;
 }
 
-.calendar-day-cell:hover .event-stripe-line {
-  height: 3px;
+.timeline-item:hover .timeline-dot {
+  box-shadow: 0 0 20px var(--event-color), 0 0 40px var(--event-color);
+  background: var(--event-color);
+  transform: rotate(135deg) scale(1.1);
+}
+
+.timeline-item:hover .timeline-dot-inner {
+  background: #FFF;
   opacity: 1;
 }
 
-/* Right Panel: Minimalist Chronological Agenda Feed */
-.agenda-panel {
+.timeline-content {
   background: var(--bg-card);
-  border: 1px solid rgba(249, 168, 38, 0.25);
+  border: 1px solid rgba(249, 168, 38, 0.22);
   border-radius: var(--radius-lg);
-  padding: 0.95rem 1.15rem;
+  padding: 1.5rem;
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--shadow-md);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.agenda-panel-header {
-  margin-bottom: 0.65rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--border-subtle);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.agenda-panel-title {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--color-accent);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.agenda-feed-scroll {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding-right: 0.3rem;
-}
-
-/* Custom Scrollbar for Agenda Feed */
-.agenda-feed-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-
-.agenda-feed-scroll::-webkit-scrollbar-track {
-  background: rgba(7, 19, 31, 0.4);
-  border-radius: 4px;
-}
-
-.agenda-feed-scroll::-webkit-scrollbar-thumb {
-  background: var(--color-primary-light);
-  border-radius: 4px;
-}
-
-.agenda-feed-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
-}
-
-/* Reference-Style Minimalist Agenda Card with Two-Way Synchronized State */
-.agenda-compact-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 0.95rem;
-  background: rgba(16, 42, 67, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-md);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
-  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
-  gap: 0.75rem;
 }
 
-.agenda-compact-card:hover {
-  transform: translateX(4px);
-  background: rgba(28, 64, 102, 0.5);
-  border-color: rgba(249, 168, 38, 0.45);
-}
-
-.agenda-compact-card.active-in-month {
-  border-color: rgba(249, 168, 38, 0.4);
-  background: rgba(20, 50, 80, 0.45);
-}
-
-.agenda-compact-card.card-focused {
-  border-color: var(--color-accent);
-  background: rgba(28, 64, 102, 0.65);
-  box-shadow: 0 0 14px rgba(249, 168, 38, 0.5);
-  transform: translateX(6px);
-}
-
-.agenda-left-bar {
+.timeline-content::before {
+  content: '';
   position: absolute;
+  top: 0;
   left: 0;
-  top: 4px;
-  bottom: 4px;
-  width: 5px;
-  border-radius: 0 4px 4px 0;
+  width: 4px;
+  height: 100%;
+  background: var(--event-color);
+  opacity: 0.8;
+  transition: width 0.3s ease;
 }
 
-.agenda-date-text {
+.timeline-item:hover .timeline-content {
+  transform: translateX(8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border-color: rgba(249, 168, 38, 0.5);
+  background: var(--bg-card-hover);
+}
+
+.timeline-item:hover .timeline-content::before {
+  width: 8px;
+}
+
+.timeline-date {
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 700;
-  color: #FFFFFF;
-  white-space: nowrap;
-  margin-left: 0.4rem;
-  letter-spacing: 0.01em;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
 }
 
-.agenda-title-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  min-width: 0;
-}
-
-.agenda-title-text {
-  font-size: 0.85rem;
-  font-weight: 700;
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
   color: var(--color-text-main);
-  line-height: 1.25;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 230px;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
 }
 
-.agenda-title-underline {
-  height: 2.5px;
-  width: 100%;
-  max-width: 85px;
-  margin-top: 4px;
-  border-radius: 2px;
+.timeline-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
 }
 
 /* --------------------------------------------------------------------------
@@ -2173,6 +2131,44 @@ button, input, textarea, select {
   transform: translateY(-2px);
 }
 
+/* Footer Narahubung List */
+.footer-cp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: 0.4rem;
+}
+
+.footer-cp-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-cp-item:last-child {
+  border-bottom: none;
+}
+
+.footer-cp-name-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-cp-lomba {
+  font-weight: 700;
+  font-size: 0.775rem;
+  color: var(--color-accent);
+  line-height: 1.25;
+}
+
+.footer-cp-person {
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+}
+
 /* Social Media Column (Minimalist Icon + Handle List) */
 .social-links {
   display: flex;
@@ -2262,10 +2258,6 @@ button, input, textarea, select {
 @media (max-width: 1024px) {
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .schedule-layout {
-    grid-template-columns: 1fr;
   }
 
   .sponsor-grid-primary {
@@ -2370,10 +2362,10 @@ button, input, textarea, select {
   }
 
   .category-icon-frame {
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
     margin-bottom: 0.4rem;
-    padding: 6px;
+    padding: 0;
   }
 
   .section-header {
@@ -2382,48 +2374,43 @@ button, input, textarea, select {
 }
 
 @media (max-width: 480px) {
-  .calendar-card, 
-  .agenda-panel {
-    padding: 0.85rem 0.75rem;
+  .timeline-item {
+    padding-left: 60px;
+    margin-bottom: 2rem;
   }
 
-  .calendar-days-grid {
-    gap: 3px;
+  .timeline-line {
+    left: 20px;
   }
 
-  .calendar-day-cell {
-    font-size: 0.725rem;
+  .timeline-dot {
+    left: 7px;
+    width: 24px;
+    height: 24px;
   }
 
-  .calendar-day-cell.is-today .day-number {
-    width: 22px;
-    height: 22px;
-    font-size: 0.775rem;
+  .timeline-dot-inner {
+    width: 10px;
+    height: 10px;
   }
 
-  .milestone-badge {
-    font-size: 0.485rem;
-    padding: 0 2px;
+  .timeline-content {
+    padding: 1.1rem;
   }
 
-  .calendar-period-status {
-    font-size: 0.65rem;
-    padding: 0.3rem 0.5rem;
+  .timeline-title {
+    font-size: 1.15rem;
   }
 
-  .agenda-compact-card {
-    padding: 0.5rem 0.65rem 0.5rem 0.6rem;
-    gap: 0.5rem;
-  }
-
-  .agenda-date-text {
+  .timeline-date {
     font-size: 0.75rem;
   }
 
-  .agenda-title-text {
-    font-size: 0.75rem;
-    max-width: 140px;
+  .timeline-desc {
+    font-size: 0.85rem;
   }
+
+
 
   .faq-question {
     padding: 0.85rem 1rem;
@@ -2677,3 +2664,106 @@ button, input, textarea, select {
     font-size: 0.65rem;
   }
 }
+
+/* ==========================================================================
+   ✨ CUSTOM ETHNIC CURSOR (Kawung & Diamond Motif)
+   ========================================================================== */
+
+/* ==========================================================================
+   CUSTOM CURSOR (TEMPORARILY DISABLED / HIDDEN - CODE PRESERVED)
+   ========================================================================== */
+/*
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+*/
+
+.custom-cursor,
+.custom-cursor-trail {
+  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999999;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Central Pointer Dot */
+.custom-cursor {
+  width: 10px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(249, 168, 38, 0.9), 0 0 20px rgba(249, 168, 38, 0.5);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Orbiting / Trailing Ethnic Kawung Motif */
+.custom-cursor-trail {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor-ethnic-motif {
+  width: 100%;
+  height: 100%;
+  color: var(--color-accent);
+  filter: drop-shadow(0 0 6px rgba(249, 168, 38, 0.45));
+  transform-origin: center center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease, color 0.3s ease;
+}
+
+.ethnic-cursor-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Hover Interaction on Links, Buttons, Cards, Controls */
+.custom-cursor.hover .cursor-dot {
+  transform: scale(0.4);
+  background: #FFFDF8;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+}
+
+.custom-cursor-trail.hover .cursor-ethnic-motif {
+  color: #FFD56B;
+  filter: drop-shadow(0 0 12px rgba(249, 168, 38, 0.85)) drop-shadow(0 0 24px rgba(249, 168, 38, 0.45));
+}
+
+/* Mouse Down Active (Press) */
+.custom-cursor.active .cursor-dot {
+  transform: scale(1.8);
+  background: #FFFFFF;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 1);
+}
+
+.custom-cursor-trail.active .cursor-ethnic-motif {
+  transform: scale(0.8);
+  filter: drop-shadow(0 0 18px rgba(255, 213, 107, 1));
+}
+
+/* Hidden on mobile / tablets / touch devices */
+@media (pointer: coarse), (hover: none) {
+  .custom-cursor,
+  .custom-cursor-trail {
+    display: none !important;
+  }
+}
+
