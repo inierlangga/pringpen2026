@@ -52,7 +52,7 @@ export const categoriesData = [
     description: "Kompetisi seni olah vokal, intonasi, dan ekspresi narasi suara bernuansa Nusantara yang komunikatif, hidup, dan memikat pendengar.",
     regLink: "https://staner.id/DaftarLarasSuaraPringPen",
     guidebookLink: "https://drive.google.com/drive/folders/1nZd2cgigKeWug6SL9DL5yjgUzpgMYEH4?usp=sharing",
-    chips: ["Durasi: 2 – 4 mnt", "Free Creation", "Biaya: Rp30.000"],
+    chips: ["Durasi: 2 – 4 mnt", "Free Creation", "Min. 720p HD"],
     subthemes: [
       "Ketika Nusantara Bercerita",
       "Tapak Pusaka Nusantara",
@@ -61,7 +61,6 @@ export const categoriesData = [
     techRules: [
       "Durasi rekaman: 2 – 4 menit.",
       "Konsep: Free Creation (peserta bebas menentukan ide naskah & visual pendukung).",
-      "Biaya pendaftaran: Rp30.000 per pendaftar.",
       "Format video: MP4 Landscape, minimal 720p HD, maksimal 500 MB."
     ],
     contactPersons: [
@@ -117,7 +116,6 @@ export const categoriesData = [
       "Materi: Tari tradisional ragam pakem atau tari kreasi baru Nusantara (Pendar Renjana, Nyala di Batas Cakrawala).",
       "Durasi penampilan: Menyesuaikan durasi musik pengiring tari orisinal.",
       "Format: Video MP4 Landscape, min. 720p HD, maks. 500 MB, Single Take (memperlihatkan seluruh penari & pola lantai secara utuh).",
-      "Apresiasi juara: Uang Pembinaan + Trophy Juara + E-Sertifikat Juara."
     ],
     contactPersons: [
       { name: "Ilma", phone: "0821-4411-2193", waNumber: "6282144112193" },
