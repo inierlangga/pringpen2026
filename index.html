@@ -165,9 +165,14 @@
           </a>
           <!-- CTA 2: Ticketing Acara Puncak -->
           <!-- TODO: Ganti '#' dengan link URL pembelian tiket resmi saat dibuka -->
-          <a href="#" class="btn btn-secondary btn-lg">
-            Ticketing Acara Puncak
-          </a>
+          <div class="hero-tooltip-container">
+            <a href="javascript:void(0)" class="btn btn-secondary btn-lg ticketing-btn disabled-btn" role="button" aria-disabled="true" title="Ticketing Acara Puncak belum Dibuka">
+              Ticketing Acara Puncak
+            </a>
+            <div class="hero-tooltip-bubble" role="tooltip" aria-hidden="true">
+              Ticketing Acara Puncak belum Dibuka
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -628,7 +633,7 @@
 
         <!-- Kolom 4: Lokasi Kampus PKN STAN (Gedung G) -->
         <div class="footer-col">
-          <h4 class="footer-col-title">Lokasi Acara</h4>
+          <h4 class="footer-col-title">Lokasi Acara Puncak</h4>
           <div class="footer-map-wrapper">
             <iframe 
               src="https://maps.google.com/maps?q=Gedung%20G%20PKN%20STAN&t=&z=15&ie=UTF8&iwloc=&output=embed" 

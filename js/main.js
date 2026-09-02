@@ -108,7 +108,6 @@ export const categoriesData = [
     guidebookLink: "https://drive.google.com/drive/folders/1sSlqdMsbAL390qxcGs9r5H7MBUWdya2G?usp=sharing",
     chips: ["Beregu 3 – 7 Orang", "Single Take", "Trophy + Uang Pembinaan"],
     subthemes: [
-      "Pendar Renjana, Nyala di Batas Cakrawala",
       "Tari Tradisional Ragam Pakem Nusantara",
       "Tari Kreasi Baru Bernuansa Nusantara"
     ],
@@ -289,8 +288,25 @@ document.addEventListener('DOMContentLoaded', () => {
   initBacksound();
   init3DTilt();
   initFooterCpModal();
+  initTicketingTooltip();
   initCustomCursor();
 });
+
+function initTicketingTooltip() {
+  const container = document.querySelector('.hero-tooltip-container');
+  const btn = document.querySelector('.ticketing-btn');
+  if (!container || !btn) return;
+
+  let timer = null;
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    container.classList.add('active-tooltip');
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      container.classList.remove('active-tooltip');
+    }, 2200);
+  });
+}
 
 function init3DTilt() {
   // 3D tilt hover dinonaktifkan sesuai permintaan pengguna untuk card yang lebih stabil & clean

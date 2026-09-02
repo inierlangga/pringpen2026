@@ -1251,6 +1251,79 @@ button, input, textarea, select {
   margin-top: 0.75rem;
 }
 
+/* Hero Ticketing Button & Tooltip */
+.hero-tooltip-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticketing-btn.disabled-btn {
+  cursor: not-allowed;
+  opacity: 0.88;
+}
+
+.ticketing-btn.disabled-btn:hover {
+  transform: none;
+  background: rgba(16, 42, 67, 0.95);
+  border-color: rgba(249, 168, 38, 0.45);
+}
+
+.hero-tooltip-bubble {
+  position: absolute;
+  bottom: calc(100% + 11px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: rgba(11, 29, 48, 0.96);
+  color: var(--color-accent);
+  border: 1px solid rgba(249, 168, 38, 0.45);
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.775rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 12px rgba(249, 168, 38, 0.25);
+  z-index: 100;
+  text-align: center;
+}
+
+.hero-tooltip-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(11, 29, 48, 0.96) transparent transparent transparent;
+}
+
+.hero-tooltip-container:hover .hero-tooltip-bubble,
+.hero-tooltip-container:focus-within .hero-tooltip-bubble,
+.hero-tooltip-container.active-tooltip .hero-tooltip-bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 480px) {
+  .hero-tooltip-bubble {
+    font-size: 0.725rem;
+    padding: 0.38rem 0.7rem;
+    white-space: normal;
+    width: max-content;
+    max-width: 240px;
+    line-height: 1.35;
+  }
+}
+
 /* --------------------------------------------------------------------------
    SECTION 3: KATEGORI LOMBA (#kategori-lomba)
    -------------------------------------------------------------------------- */
