@@ -23,8 +23,7 @@ export function initScrollAnimations() {
   // Single elements & container panels
   const singleElements = document.querySelectorAll(`
     .section-header,
-    .calendar-card,
-    .agenda-panel,
+    .timeline-layout,
     .gallery-carousel-container,
     .sponsor-cta-banner
   `);

@@ -18,6 +18,7 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/icons/logo.PNG">
+</head>
 <body class="preloader-active">
   <!-- Fixed Parallax Batik Background Layer -->
   <div class="bg-parallax-batik" aria-hidden="true"></div>
@@ -674,7 +675,7 @@
         <ul id="modal-details-list"></ul>
       </div>
       <div class="modal-footer">
-        <a href="#kategori-lomba" class="btn btn-primary btn-sm" onclick="document.getElementById('event-modal').classList.remove('active'); document.body.style.overflow='';">
+        <a id="event-modal-cta-btn" href="#kategori-lomba" class="btn btn-primary btn-sm">
           Lihat Kategori Lomba
         </a>
       </div>
@@ -801,7 +802,7 @@
         </div>
       </div>
       <div class="modal-footer" style="justify-content: center;">
-        <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('footer-cp-modal').classList.remove('active'); document.body.style.overflow='';">
+        <button id="footer-cp-modal-close-bottom-btn" type="button" class="btn btn-outline btn-sm">
           Tutup
         </button>
       </div>

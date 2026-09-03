@@ -10,7 +10,6 @@ import { initCarousel } from './carousel.js';
 import { initFaqAccordion } from './faq.js';
 import { initScrollAnimations } from './scroll-animations.js';
 import { initBacksound } from './audio.js';
-import { initEmbers } from './embers.js';
 
 // Structured Category Data for Competition Section
 export const categoriesData = [
@@ -317,6 +316,7 @@ function initFooterCpModal() {
   const openBtn = document.getElementById('open-footer-cp-modal-btn');
   const modal = document.getElementById('footer-cp-modal');
   const closeBtn = document.getElementById('footer-cp-modal-close-btn');
+  const bottomCloseBtn = document.getElementById('footer-cp-modal-close-bottom-btn');
   if (!modal) return;
 
   function openModal() {
@@ -331,6 +331,7 @@ function initFooterCpModal() {
 
   if (openBtn) openBtn.addEventListener('click', openModal);
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (bottomCloseBtn) bottomCloseBtn.addEventListener('click', closeModal);
 
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
@@ -341,12 +342,28 @@ function initFooterCpModal() {
       closeModal();
     }
   });
+
+  // Event modal close listener (if active)
+  const eventModal = document.getElementById('event-modal');
+  const eventModalCta = document.getElementById('event-modal-cta-btn');
+  const eventModalClose = document.getElementById('modal-close-btn');
+  if (eventModal) {
+    const closeEventModal = () => {
+      eventModal.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+    if (eventModalCta) eventModalCta.addEventListener('click', closeEventModal);
+    if (eventModalClose) eventModalClose.addEventListener('click', closeEventModal);
+    eventModal.addEventListener('click', (e) => {
+      if (e.target === eventModal) closeEventModal();
+    });
+  }
 }
 
 function initCustomCursor() {
-  // Temporarily disabled / hidden by user request (code preserved)
-  return;
-
+  // Custom cursor is disabled per user preference (native cursor preserved).
+  // Implementation preserved below for future reference if ever re-enabled:
+  /*
   const cursor = document.querySelector('.custom-cursor');
   const trail = document.querySelector('.custom-cursor-trail');
   const svgMotif = document.querySelector('.ethnic-cursor-svg');
@@ -404,7 +421,6 @@ function initCustomCursor() {
     isMouseDown = false;
     cursor.classList.remove('active');
     trail.classList.remove('active');
-    // Restore speed based on hover state
     targetRotationSpeed = trail.classList.contains('hover') ? 0.8 : 0.4;
   });
 
@@ -413,12 +429,10 @@ function initCustomCursor() {
     trailY += (mouseY - trailY) * 0.16;
     trail.style.transform = `translate(${trailX}px, ${trailY}px) translate(-50%, -50%)`;
 
-    // Accelerate spin speed while mouse is held down
     if (isMouseDown) {
-      targetRotationSpeed = Math.min(targetRotationSpeed + 0.8, 50); // accelerate up to max 50 deg/frame
+      targetRotationSpeed = Math.min(targetRotationSpeed + 0.8, 50);
     }
 
-    // Smoothly interpolate rotation speed
     currentRotationSpeed += (targetRotationSpeed - currentRotationSpeed) * 0.05;
     currentRotation += currentRotationSpeed;
     if (svgMotif) {
@@ -429,7 +443,7 @@ function initCustomCursor() {
   }
   requestAnimationFrame(renderTrail);
 
-  const interactiveSelectors = 'a, button, .btn, .category-card, .countdown-wrapper, .faq-question, .carousel-btn, .carousel-dot, .calendar-day, .audio-cd-btn, .nav-brand, input, select, textarea, [role="button"]';
+  const interactiveSelectors = 'a, button, .btn, .category-card, .countdown-wrapper, .faq-question, .carousel-btn, .carousel-dot, .audio-cd-btn, .nav-brand, input, select, textarea, [role="button"]';
 
   function bindHoverEffects() {
     document.querySelectorAll(interactiveSelectors).forEach(el => {
@@ -440,7 +454,6 @@ function initCustomCursor() {
         cursor.classList.add('hover');
         trail.classList.add('hover');
         
-        // Spin fast for a brief moment, then slow down (only if not holding click)
         if (!isMouseDown) {
           targetRotationSpeed = 15;
           clearTimeout(fastSpinTimeout);
@@ -468,4 +481,5 @@ function initCustomCursor() {
     bindHoverEffects();
   });
   observer.observe(document.body, { childList: true, subtree: true });
+  */
 }

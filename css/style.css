@@ -428,6 +428,7 @@ button, input, textarea, select {
   font-size: 1.35rem;
   background: linear-gradient(135deg, #FFF0C2 0%, #F9A826 50%, #E5B25D 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1968,7 +1969,7 @@ button, input, textarea, select {
 }
 
 /* --------------------------------------------------------------------------
-   SECTION: FAQ COMPONENT (#faq) — Canon Cup Style Accordion Animation
+   SECTION: FAQ COMPONENT (#faq) — PRINGPEN 2026 Accordion Animation
    -------------------------------------------------------------------------- */
 .faq-container {
   max-width: 820px;
