@@ -25,6 +25,7 @@ export function initScrollAnimations() {
     .section-header,
     .timeline-layout,
     .gallery-carousel-container,
+    .ba-hero-card,
     .sponsor-cta-banner
   `);
 

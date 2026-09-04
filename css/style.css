@@ -1873,6 +1873,91 @@ button, input, textarea, select {
 }
 
 /* --------------------------------------------------------------------------
+   SECTION 5: BRAND AMBASSADOR (#brand-ambassador)
+   -------------------------------------------------------------------------- */
+.ba-hero-card {
+  background: rgba(11, 29, 48, 0.32);
+  border: 1px solid rgba(249, 168, 38, 0.35);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 3.25rem 2.25rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ba-hero-content {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.ba-hero-title {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  color: var(--color-text);
+  margin-bottom: 1.15rem;
+  line-height: 1.35;
+}
+
+.ba-hero-desc {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ba-hero-desc em {
+  color: var(--color-accent);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.ba-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Tombol daftar tanpa efek glow */
+.ba-register-btn {
+  box-shadow: none !important;
+}
+
+.ba-register-btn:hover {
+  box-shadow: none !important;
+}
+
+/* Responsiveness for Brand Ambassador */
+@media (max-width: 600px) {
+  .ba-hero-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .ba-hero-title {
+    font-size: 1.35rem;
+  }
+
+  .ba-hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ba-hero-actions .btn {
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
    SECTION 6: SPONSOR SHOWCASE (#sponsor)
    -------------------------------------------------------------------------- */
 .sponsor-tier-group {
