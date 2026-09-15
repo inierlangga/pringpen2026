@@ -23,7 +23,6 @@ export function initScrollAnimations() {
   // Single elements & container panels
   const singleElements = document.querySelectorAll(`
     .section-header,
-    .timeline-layout,
     .gallery-carousel-container,
     .ba-hero-card,
     .sponsor-cta-banner
