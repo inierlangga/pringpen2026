@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initTicketingTooltip() {
   const container = document.querySelector('.hero-tooltip-container');
-  const btn = document.querySelector('.ticketing-btn');
+  const btn = document.querySelector('.ticketing-btn.disabled-btn');
   if (!container || !btn) return;
 
   let timer = null;
