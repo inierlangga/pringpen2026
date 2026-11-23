@@ -337,24 +337,92 @@ document.addEventListener('DOMContentLoaded', () => {
   initBacksound();
   init3DTilt();
   initFooterCpModal();
-  initTicketingTooltip();
+  initTicketingButton();
   initCustomCursor();
 });
 
-function initTicketingTooltip() {
-  const container = document.querySelector('.hero-tooltip-container');
-  const btn = document.querySelector('.ticketing-btn.disabled-btn');
-  if (!container || !btn) return;
+function initTicketingButton() {
+  const container = document.getElementById('ticketing-container') || document.querySelector('.hero-tooltip-container');
+  const btn = document.getElementById('ticketing-btn') || document.querySelector('.ticketing-btn');
+  const bubble = document.getElementById('ticketing-bubble') || document.querySelector('.hero-tooltip-bubble');
+  if (!btn) return;
 
-  let timer = null;
-  btn.addEventListener('click', (e) => {
+  const TICKETING_URL = 'https://staner.id/TicketingAcpunPringpen26';
+  // Target Buka Otomatis: Selasa, 24 November 2026 00:00:00 WIB (UTC+7)
+  const openTime = new Date('2026-11-24T00:00:00+07:00').getTime();
+
+  let tooltipTimer = null;
+
+  function onDisabledClick(e) {
     e.preventDefault();
-    container.classList.add('active-tooltip');
-    clearTimeout(timer);
-    timer = setTimeout(() => {
+    if (container) {
+      container.classList.add('active-tooltip');
+      clearTimeout(tooltipTimer);
+      tooltipTimer = setTimeout(() => {
+        container.classList.remove('active-tooltip');
+      }, 2500);
+    }
+  }
+
+  function enableTicketing() {
+    btn.removeEventListener('click', onDisabledClick);
+    btn.classList.remove('disabled-btn');
+    btn.removeAttribute('aria-disabled');
+    btn.removeAttribute('role');
+    btn.setAttribute('href', TICKETING_URL);
+    btn.setAttribute('target', '_blank');
+    btn.setAttribute('rel', 'noopener noreferrer');
+    btn.setAttribute('title', 'Ticketing Acara Puncak');
+    if (bubble) {
+      bubble.style.display = 'none';
+      bubble.setAttribute('aria-hidden', 'true');
+    }
+    if (container) {
       container.classList.remove('active-tooltip');
-    }, 2200);
-  });
+    }
+  }
+
+  function disableTicketing() {
+    btn.classList.add('disabled-btn');
+    btn.setAttribute('href', 'javascript:void(0)');
+    btn.removeAttribute('target');
+    btn.removeAttribute('rel');
+    btn.setAttribute('role', 'button');
+    btn.setAttribute('aria-disabled', 'true');
+    btn.setAttribute('title', 'Ticketing Acara Puncak dibuka 24 November 2026 pukul 00.00 WIB');
+    if (bubble) {
+      bubble.style.display = '';
+      bubble.setAttribute('aria-hidden', 'false');
+    }
+    btn.removeEventListener('click', onDisabledClick);
+    btn.addEventListener('click', onDisabledClick);
+  }
+
+  function checkStatus() {
+    const now = Date.now();
+    if (now >= openTime) {
+      enableTicketing();
+      return true;
+    } else {
+      disableTicketing();
+      return false;
+    }
+  }
+
+  const isAlreadyOpen = checkStatus();
+  if (!isAlreadyOpen) {
+    const timeRemaining = openTime - Date.now();
+    if (timeRemaining > 0 && timeRemaining < 2147483647) {
+      setTimeout(() => {
+        checkStatus();
+      }, timeRemaining);
+    }
+    const interval = setInterval(() => {
+      if (checkStatus()) {
+        clearInterval(interval);
+      }
+    }, 10000);
+  }
 }
 
 function init3DTilt() {
