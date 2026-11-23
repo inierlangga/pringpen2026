@@ -348,8 +348,8 @@ function initTicketingButton() {
   if (!btn) return;
 
   const TICKETING_URL = 'https://staner.id/TicketingAcpunPringpen26';
-  // Target Buka Otomatis: Selasa, 24 November 2026 00:00:00 WIB (UTC+7)
-  const openTime = new Date('2026-11-24T00:00:00+07:00').getTime();
+  // Target Buka Otomatis: Selasa, 24 November 2026 09:00:00 WIB (UTC+7)
+  const openTime = new Date('2026-11-24T09:00:00+07:00').getTime();
 
   let tooltipTimer = null;
 
@@ -389,7 +389,7 @@ function initTicketingButton() {
     btn.removeAttribute('rel');
     btn.setAttribute('role', 'button');
     btn.setAttribute('aria-disabled', 'true');
-    btn.setAttribute('title', 'Ticketing Acara Puncak dibuka 24 November 2026 pukul 00.00 WIB');
+    btn.setAttribute('title', 'Ticketing Acara Puncak dibuka 24 November 2026 pukul 09.00 WIB');
     if (bubble) {
       bubble.style.display = '';
       bubble.setAttribute('aria-hidden', 'false');
