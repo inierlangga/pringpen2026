@@ -338,8 +338,34 @@ document.addEventListener('DOMContentLoaded', () => {
   init3DTilt();
   initFooterCpModal();
   initTicketingButton();
+  initHeroDescToggle();
   initCustomCursor();
 });
+
+function initHeroDescToggle() {
+  const btn = document.getElementById('hero-read-more-btn');
+  const moreContent = document.getElementById('hero-desc-more');
+  if (!btn || !moreContent) return;
+
+  const btnText = btn.querySelector('.btn-text');
+
+  btn.addEventListener('click', () => {
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    if (isExpanded) {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.classList.remove('is-expanded');
+      moreContent.classList.remove('is-expanded');
+      moreContent.setAttribute('aria-hidden', 'true');
+      if (btnText) btnText.textContent = 'Selengkapnya';
+    } else {
+      btn.setAttribute('aria-expanded', 'true');
+      btn.classList.add('is-expanded');
+      moreContent.classList.add('is-expanded');
+      moreContent.setAttribute('aria-hidden', 'false');
+      if (btnText) btnText.textContent = 'Sembunyikan';
+    }
+  });
+}
 
 function initTicketingButton() {
   const container = document.getElementById('ticketing-container') || document.querySelector('.hero-tooltip-container');
